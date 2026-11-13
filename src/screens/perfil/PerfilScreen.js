@@ -1,0 +1,78 @@
+// src/screens/perfil/PerfilScreen.js
+// Aba Perfil: dados da conta e botões extras conforme o tipo (usuário, expositor ou administrador).
+import { useState } from 'react';
+import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors, fonts } from '../../theme';
+import { useAuth } from '../../context/AuthContext';
+import Header from '../../components/Header';
+import Field from '../../components/Field';
+import Button from '../../components/Button';
+import EditarPerfilModal from './EditarPerfilModal';
+
+// Para cada tipo de conta: texto do topo, texto do botão de editar e atalhos [rótulo, tela].
+const ROLES = {
+  usuario: { label: 'Usuário', edit: 'Editar', links: [] },
+  expositor: { label: 'Expositor', edit: 'Editar perfil', links: [['Área de Eventos', 'AreaEventos']] },
+  administrador: {
+    label: 'Administrador',
+    edit: 'Editar perfil',
+    links: [['Área de Eventos', 'AreaEventos'], ['Usuários', 'Usuarios'], ['Relatórios', 'Relatorios']],
+  },
+};
+
+export default function PerfilScreen({ navigation }) {
+  const { user, logout, updateUser } = useAuth();
+  const [editing, setEditing] = useState(false);
+  const role = ROLES[user.role];
+
+  return (
+    <SafeAreaView style={s.screen} edges={['top']}>
+      <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
+        <Header label={role.label} />
+
+        <View style={s.identity}>
+          <View style={s.avatar} />
+          <Text style={s.name}>{user.displayName}</Text>
+        </View>
+
+        <Text style={s.section}>Dados pessoais</Text>
+        <Field label="Nome" value={user.name} editable={false} />
+        <Field label="Telefone" value={user.phone} editable={false} />
+        <Field label="E-mail" value={user.email} editable={false} />
+        <Field label="Senha" value={user.password} secure editable={false} />
+
+        <Button label={role.edit} onPress={() => setEditing(true)} style={{ marginTop: 8 }} />
+        {role.links.map(([label, route]) => (
+          <Button key={route} label={label} onPress={() => navigation.navigate(route)} style={{ marginTop: 20 }} />
+        ))}
+
+        {/* Não existe no Figma: serve para trocar de conta durante os testes. */}
+        <Pressable onPress={logout} style={s.logout}>
+          <Text style={s.logoutText}>Sair da conta</Text>
+        </Pressable>
+      </ScrollView>
+
+      <EditarPerfilModal
+        visible={editing}
+        user={user}
+        onClose={() => setEditing(false)}
+        onSave={(dados) => {
+          updateUser(dados);
+          setEditing(false);
+        }}
+      />
+    </SafeAreaView>
+  );
+}
+
+const s = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.white },
+  content: { paddingHorizontal: 24, paddingTop: 16, paddingBottom: 24 },
+  identity: { flexDirection: 'row', alignItems: 'center', marginTop: 24 },
+  avatar: { width: 90, height: 90, borderRadius: 45, backgroundColor: colors.purple },
+  name: { flex: 1, marginLeft: 36, fontFamily: fonts.title, fontSize: 28, color: colors.black },
+  section: { fontFamily: fonts.title, fontSize: 22, color: colors.black, marginTop: 36, marginBottom: 20 },
+  logout: { alignItems: 'center', padding: 16, marginTop: 8 },
+  logoutText: { fontFamily: fonts.bold, fontSize: 14, color: colors.purple },
+});
