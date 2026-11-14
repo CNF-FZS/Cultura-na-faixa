@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { View, Text, Image, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts } from '../../theme';
-import { EVENTS } from '../../data/events';
+import { useEvents } from '../../context/EventsContext';
 import Filters from '../../components/Filters';
 import FeaturedCard from '../../components/FeaturedCard';
 import EventCard from '../../components/EventCard';
 
-const featured = EVENTS.find((e) => e.featured);
-const agenda = EVENTS.filter((e) => !e.featured);
-
 export default function MenuScreen() {
+  const { events: todos } = useEvents();
+  const featured = todos.find((e) => e.featured);
+  const agenda = todos.filter((e) => !e.featured);
   const [filter, setFilter] = useState('Tudo');
   const events = agenda.filter((e) => filter === 'Tudo' || e.category === filter);
 
@@ -32,7 +32,7 @@ export default function MenuScreen() {
           <Text style={s.kickerRight}>24 e 25 de outubro</Text>
         </View>
 
-        <FeaturedCard event={featured} />
+        {featured && <FeaturedCard event={featured} />}
 
         <View style={[s.rowBetween, s.sectionHead]}>
           <Text style={s.sectionTitle}>Na sua agenda</Text>

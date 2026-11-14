@@ -9,7 +9,7 @@ import Field from '../../components/Field';
 import Button from '../../components/Button';
 import EsqueciSenhaModal from './EsqueciSenhaModal';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -17,7 +17,8 @@ export default function LoginScreen() {
   const [forgot, setForgot] = useState(false);
 
   const entrar = () => {
-    if (!login(email, senha)) setErro('E-mail ou senha incorretos. Confira e tente de novo.');
+    if (!login(email, senha)) return setErro('E-mail ou senha incorretos. Confira e tente de novo.');
+    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('Tabs');
   };
 
   return (
@@ -37,8 +38,11 @@ export default function LoginScreen() {
         <Button label="Entrar" onPress={entrar} style={{ marginTop: 28 }} />
 
         <Text style={s.signup}>
-          Novo aqui? <Text style={s.signupLink}>Crie sua conta</Text>
+          Novo aqui? <Text style={s.signupLink} onPress={() => navigation.navigate('Cadastro', { self: true })}>Crie sua conta</Text>
         </Text>
+        <Pressable onPress={() => navigation.navigate('Tabs')} style={s.skip}>
+          <Text style={s.link}>Continuar sem entrar</Text>
+        </Pressable>
         <Text style={s.footer}>A cidade é sua. A entrada é grátis.</Text>
       </ScrollView>
 
@@ -57,5 +61,6 @@ const s = StyleSheet.create({
   erro: { fontFamily: fonts.body, fontSize: 14, color: colors.black, marginTop: 16 },
   signup: { textAlign: 'center', fontFamily: fonts.bold, fontSize: 14, color: colors.purple, marginTop: 44 },
   signupLink: { color: colors.green },
+  skip: { alignItems: 'center', padding: 12, marginTop: 12 },
   footer: { textAlign: 'center', fontFamily: fonts.body, fontSize: 13, color: colors.black, marginTop: 'auto', paddingTop: 40 },
 });

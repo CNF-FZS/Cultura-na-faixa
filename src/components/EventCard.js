@@ -2,15 +2,19 @@
 // Card de evento (imagem, data, título, local, categoria e coração). Com onRemove, mostra "Remover dos favoritos".
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import useRequireLogin from '../hooks/useRequireLogin';
 import { colors, fonts } from '../theme';
 import { useFavorites } from '../context/FavoritesContext';
 
 export default function EventCard({ event, showPrice = true, onRemove }) {
   const { isFavorite, toggle } = useFavorites();
   const fav = isFavorite(event.id);
+  const navigation = useNavigation();
+  const requireLogin = useRequireLogin();
 
   return (
-    <View style={s.card}>
+    <Pressable style={s.card} onPress={() => navigation.navigate('Detalhes', { id: event.id })}>
       <View style={s.row}>
         <Image source={event.image} style={s.image} />
         <View style={s.body}>
@@ -20,7 +24,7 @@ export default function EventCard({ event, showPrice = true, onRemove }) {
           <View style={s.rowBetween}>
             <Text style={s.meta}>{showPrice ? `${event.category} · ${event.price}` : event.category}</Text>
             <Pressable
-              onPress={() => toggle(event.id)}
+              onPress={() => requireLogin(() => toggle(event.id))}
               hitSlop={12}
               accessibilityRole="button"
               accessibilityLabel={fav ? 'Remover dos favoritos' : 'Favoritar'}
@@ -36,7 +40,7 @@ export default function EventCard({ event, showPrice = true, onRemove }) {
           <Text style={s.removeText}>Remover dos favoritos</Text>
         </Pressable>
       )}
-    </View>
+    </Pressable>
   );
 }
 

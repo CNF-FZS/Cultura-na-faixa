@@ -1,29 +1,54 @@
 // src/context/AuthContext.js
-// Quem está logado (usuário, expositor ou administrador). Contas fictícias; trocar por API depois.
+// Contas e login. Sem login o app funciona como visitante (user = null). Contas fictícias; trocar por API depois.
 import { createContext, useContext, useState } from 'react';
 
+export const ROLE_LABEL = { usuario: 'Leitor', expositor: 'Expositor', administrador: 'Administrador' };
+export const initials = (name) => name.split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
+const hoje = () => {
+  const d = new Date();
+  return `${d.getDate()} ${'jan,fev,mar,abr,mai,jun,jul,ago,set,out,nov,dez'.split(',')[d.getMonth()]} ${d.getFullYear()}`;
+};
+
 // Senha de todas as contas de teste: 12345678
+const conta = (id, role, name, phone, email, since, displayName = name) =>
+  ({ id, role, name, displayName, phone, email, since, password: '12345678' });
 const USERS = [
-  { id: 'u1', role: 'usuario', name: 'Ana B. Campos', displayName: 'Ana B. Campos', phone: '(11) 91111-5555', email: 'ana_campos@email.com', password: '12345678' },
-  { id: 'u2', role: 'expositor', name: 'Vanessa C.', displayName: 'Vanessa C.', phone: '(11) 91661-6666', email: 'vanessac@email.com', password: '12345678' },
-  { id: 'u3', role: 'administrador', name: 'Gabriela Vasconselos', displayName: 'Gabriela V.', phone: '(11) 90000-2222', email: 'gabriela.va@email.com', password: '12345678' },
+  conta('u1', 'usuario', 'Ana B. Campos', '(11) 91111-5555', 'ana_campos@email.com', '10 out 2026'),
+  conta('u2', 'expositor', 'Vanessa C.', '(11) 91661-6666', 'vanessac@email.com', '11 out 2026'),
+  conta('u3', 'administrador', 'Gabriela Vasconselos', '(11) 90000-2222', 'gabriela.va@email.com', '1 out 2026', 'Gabriela V.'),
+  conta('u4', 'usuario', 'Marina Costa', '', 'marina.costa@exemplo.com', '18 out 2026'),
+  conta('u5', 'administrador', 'Ana Ribeiro', '', 'ana.ribeiro@exemplo.com', '12 out 2026'),
+  conta('u6', 'usuario', 'Rafael Lima', '', 'rafael.lima@exemplo.com', '20 out 2026'),
 ];
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // Dica: useState(USERS[2]) pula o login enquanto você desenvolve.
-  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState(USERS);
+  const [user, setUser] = useState(null); // null = visitante
 
   const login = (email, password) => {
-    const found = USERS.find((u) => u.email === email.trim().toLowerCase() && u.password === password);
+    const found = users.find((u) => u.email === email.trim().toLowerCase() && u.password === password);
     if (found) setUser(found);
     return !!found;
   };
   const logout = () => setUser(null);
-  const updateUser = (patch) => setUser((u) => ({ ...u, ...patch }));
+  const register = (data, autoLogin = false) => {
+    const u = { ...data, id: `u${Date.now()}`, displayName: data.name, since: hoje() };
+    setUsers((l) => [...l, u]);
+    if (autoLogin) setUser(u);
+  };
+  const updateUser = (patch, id = user?.id) => {
+    setUsers((l) => l.map((u) => (u.id === id ? { ...u, ...patch } : u)));
+    setUser((u) => (u && u.id === id ? { ...u, ...patch } : u));
+  };
+  const removeUser = (id) => setUsers((l) => l.filter((u) => u.id !== id));
 
-  return <AuthContext.Provider value={{ user, login, logout, updateUser }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, users, login, logout, register, updateUser, removeUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => useContext(AuthContext);

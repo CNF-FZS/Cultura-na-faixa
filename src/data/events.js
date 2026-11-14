@@ -57,3 +57,54 @@ export const EVENTS = [
     image: require('../../assets/outros-olhares.png'),
   },
 ];
+
+// Detalhes exibidos na tela do evento (descrição, endereço, acesso, links).
+const DETAILS = {
+  '1': {
+    artist: 'Lia Nascimento e convidados',
+    description: 'Uma tarde de samba, afeto e vozes da cidade. Lia Nascimento recebe músicos do Centro para uma roda ao ar livre com clássicos e composições autorais.',
+    dateLong: 'Sábado, 24 de outubro de 2026',
+    time: 'Início às 17h · Encerramento às 19h',
+    placeName: 'Casa de Cultura da Sé',
+    addressLines: ['Praça da Sé, 108 · Pátio externo', 'Sé, Centro · São Paulo – SP', 'CEP 01001-000'],
+    transport: ['Metrô Sé · linhas 1–Azul e 3–Vermelha', 'A 350 m, cerca de 5 minutos a pé.'],
+    age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
+    accessibility: 'Acesso sem degraus, banheiro acessível e área reservada para pessoas com mobilidade reduzida.',
+    signup: 'Inscrição antecipada pelo site; sujeita à lotação do espaço.',
+    links: { signup: 'https://exemplo.com/roda-do-encontro', info: 'https://exemplo.com/casa-de-cultura' },
+  },
+  '2': {
+    description: 'Intervenção de dança contemporânea que ocupa o centro cultural com corpos, ruas e memórias da Zona Leste.',
+    dateLong: 'Domingo, 25 de outubro de 2026',
+    time: 'Início às 15h',
+    placeName: 'Centro Cultural Vila Leste',
+    addressLines: ['Av. Vila Leste, 450', 'Vila Leste · São Paulo – SP'],
+    age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
+    links: { info: 'https://exemplo.com/vila-leste' },
+  },
+  '3': {
+    description: 'Exposição coletiva que reúne pinturas e instalações de artistas da cidade sobre o olhar de quem passa.',
+    dateLong: 'Sábado, 24 de outubro de 2026',
+    time: 'Início às 10h',
+    placeName: 'Galeria Aurora',
+    addressLines: ['Rua da Aurora, 120', 'Centro · São Paulo – SP'],
+    age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
+    links: { info: 'https://exemplo.com/galeria-aurora' },
+  },
+};
+EVENTS.forEach((e) => Object.assign(e, DETAILS[e.id]));
+
+// Valores que pré-preenchem o formulário "Editar evento" dos eventos de exemplo.
+const FORMS = {
+  '1': {
+    startDate: '24/10/2026', startTime: '17:00', endDate: '24/10/2026', endTime: '19:00',
+    cep: '01001-000', street: 'Praça da Sé', number: '108', complement: 'Pátio externo', district: 'Sé',
+    transport: 'Metrô Sé · linhas 1–Azul e 3–Vermelha. A 350 m, cerca de 5 minutos a pé.',
+    age: 'Livre', accessibility: 'Acesso sem degraus, banheiro acessível e área reservada para pessoas com mobilidade reduzida.',
+    entry: 'Inscrição antecipada; sujeita à lotação.',
+    linkSignup: 'https://exemplo.com/roda-do-encontro', linkInfo: 'https://exemplo.com/casa-de-cultura',
+  },
+  '2': { startDate: '25/10/2026', startTime: '15:00', cep: '03700-000', street: 'Av. Vila Leste', number: '450', district: 'Vila Leste', age: 'Livre' },
+  '3': { startDate: '24/10/2026', startTime: '10:00', cep: '01000-000', street: 'Rua da Aurora', number: '120', district: 'Centro', age: 'Livre' },
+};
+EVENTS.forEach((e) => (e.form = FORMS[e.id]));

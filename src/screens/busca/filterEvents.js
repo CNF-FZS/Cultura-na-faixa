@@ -5,7 +5,7 @@ import { WHEN } from '../../data/events';
 export const DEFAULT_FILTERS = { when: null, region: 'Todas', category: 'Todas' };
 
 // Ignora acentos e maiúsculas: "sé" encontra "Se", "SÉ" etc.
-const norm = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+export const norm = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 export function filterEvents(events, query, { when, region, category }) {
   const q = norm(query.trim());

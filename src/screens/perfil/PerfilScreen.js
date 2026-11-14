@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts } from '../../theme';
 import { useAuth } from '../../context/AuthContext';
 import Header from '../../components/Header';
+import LoginPrompt from '../../components/LoginPrompt';
 import Field from '../../components/Field';
 import Button from '../../components/Button';
 import EditarPerfilModal from './EditarPerfilModal';
@@ -24,6 +25,7 @@ const ROLES = {
 export default function PerfilScreen({ navigation }) {
   const { user, logout, updateUser } = useAuth();
   const [editing, setEditing] = useState(false);
+  if (!user) return <LoginPrompt title="Entre na sua conta" text="Para ver e editar seu perfil, entre ou crie uma conta gratuita." />;
   const role = ROLES[user.role];
 
   return (

@@ -4,14 +4,14 @@ import { View, TextInput, Pressable, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../../theme';
 
-export default function SearchBar({ value, onChangeText, onOpenFilters }) {
+export default function SearchBar({ value, onChangeText, onOpenFilters, placeholder = 'Digite para buscar' }) {
   return (
     <View style={s.box}>
       <Ionicons name="search-outline" size={24} color={colors.purple} />
       <TextInput
         value={value}
         onChangeText={onChangeText}
-        placeholder="Digite para buscar"
+        placeholder={placeholder}
         placeholderTextColor={colors.black + '99'}
         returnKeyType="search"
         accessibilityLabel="Buscar eventos"
@@ -22,9 +22,9 @@ export default function SearchBar({ value, onChangeText, onOpenFilters }) {
           <Ionicons name="close" size={22} color={colors.black} />
         </Pressable>
       )}
-      <Pressable onPress={onOpenFilters} style={s.filterBtn} accessibilityRole="button" accessibilityLabel="Abrir filtros">
+      {onOpenFilters && <Pressable onPress={onOpenFilters} style={s.filterBtn} accessibilityRole="button" accessibilityLabel="Abrir filtros">
         <Ionicons name="options-outline" size={24} color={colors.white} />
-      </Pressable>
+      </Pressable>}
     </View>
   );
 }

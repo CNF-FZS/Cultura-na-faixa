@@ -7,7 +7,7 @@ import { colors, fonts } from '../theme';
 import MenuScreen from '../screens/menu/MenuScreen';
 import BuscaScreen from '../screens/busca/BuscaScreen';
 import FavoritosScreen from '../screens/favoritos/FavoritosScreen';
-import PerfilScreen from '../screens/perfil/PerfilScreen';
+import PerfilStack from './PerfilStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +41,7 @@ export default function TabNavigator() {
       <Tab.Screen name="Explorar" component={MenuScreen} />
       <Tab.Screen name="Busca" component={BuscaScreen} />
       <Tab.Screen name="Favoritos" component={FavoritosScreen} />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
+      <Tab.Screen name="Perfil" component={PerfilStack} />
     </Tab.Navigator>
   );
 }

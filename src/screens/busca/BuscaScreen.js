@@ -4,7 +4,8 @@ import { useMemo, useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts } from '../../theme';
-import { EVENTS, WHEN } from '../../data/events';
+import { WHEN } from '../../data/events';
+import { useEvents } from '../../context/EventsContext';
 import Chip from '../../components/Chip';
 import EventCard from '../../components/EventCard';
 import SearchBar from './SearchBar';
@@ -12,12 +13,13 @@ import FiltrosModal from './FiltrosModal';
 import { DEFAULT_FILTERS, filterEvents } from './filterEvents';
 
 export default function BuscaScreen() {
+  const { events } = useEvents();
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [open, setOpen] = useState(false);
 
   const active = ['when', 'region', 'category'].filter((k) => filters[k] !== DEFAULT_FILTERS[k]);
-  const results = useMemo(() => filterEvents(EVENTS, query, filters), [query, filters]);
+  const results = useMemo(() => filterEvents(events, query, filters), [events, query, filters]);
   const hasActive = query.trim() !== '' || active.length > 0;
 
   const n = results.length;

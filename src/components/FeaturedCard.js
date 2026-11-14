@@ -2,15 +2,19 @@
 // Card grande de destaque (roxo) da tela inicial.
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import useRequireLogin from '../hooks/useRequireLogin';
 import { colors, fonts } from '../theme';
 import { useFavorites } from '../context/FavoritesContext';
 
 export default function FeaturedCard({ event }) {
   const { isFavorite, toggle } = useFavorites();
   const fav = isFavorite(event.id);
+  const navigation = useNavigation();
+  const requireLogin = useRequireLogin();
 
   return (
-    <View style={s.hero}>
+    <Pressable style={s.hero} onPress={() => navigation.navigate('Detalhes', { id: event.id })}>
       <Image source={event.image} style={s.image} />
       <View style={s.body}>
         <View style={s.rowBetween}>
@@ -23,7 +27,7 @@ export default function FeaturedCard({ event }) {
         <Text style={s.sub}>{event.subtitle}</Text>
         <Text style={s.venue}>{event.venue}</Text>
         <Pressable
-          onPress={() => toggle(event.id)}
+          onPress={() => requireLogin(() => toggle(event.id))}
           style={s.heart}
           accessibilityRole="button"
           accessibilityLabel={fav ? 'Remover dos favoritos' : 'Favoritar'}
@@ -31,7 +35,7 @@ export default function FeaturedCard({ event }) {
           <Ionicons name={fav ? 'heart' : 'heart-outline'} size={26} color={colors.purple} />
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

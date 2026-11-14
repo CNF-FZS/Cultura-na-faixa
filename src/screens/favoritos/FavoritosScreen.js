@@ -4,15 +4,20 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../../theme';
-import { EVENTS } from '../../data/events';
+import { useEvents } from '../../context/EventsContext';
+import { useAuth } from '../../context/AuthContext';
+import LoginPrompt from '../../components/LoginPrompt';
 import { useFavorites } from '../../context/FavoritesContext';
 import EventCard from '../../components/EventCard';
 import Button from '../../components/Button';
 
 export default function FavoritosScreen({ navigation }) {
+  const { user } = useAuth();
+  const { events } = useEvents();
   const { isFavorite, toggle } = useFavorites();
-  const lista = EVENTS.filter((e) => isFavorite(e.id));
+  const lista = events.filter((e) => isFavorite(e.id));
   const n = lista.length;
+  if (!user) return <LoginPrompt title="Salve seus eventos favoritos" text="Entre ou crie uma conta gratuita para guardar os eventos de que você mais gosta." />;
 
   return (
     <SafeAreaView style={s.screen} edges={['top']}>

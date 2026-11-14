@@ -5,22 +5,24 @@ import { View, Text, TextInput, Pressable, StyleSheet, Platform } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../theme';
 
-export default function Field({ label, helper, secure = false, showLabel = false, style, ...input }) {
+export default function Field({ label, helper, right, secure = false, showLabel = false, style, ...input }) {
   const [hidden, setHidden] = useState(secure);
+  const big = !!input.multiline; // campo de texto longo
   // Com o texto "Mostrar" (login) o ícone mostra a ação; sem ele, mostra o estado.
   const icon = hidden === showLabel ? 'eye-outline' : 'eye-off-outline';
 
   return (
     <View style={[s.wrap, style]}>
       {label ? <Text style={s.label}>{label}</Text> : null}
-      <View style={s.box}>
+      <View style={[s.box, big && s.boxBig]}>
         <TextInput
           autoCapitalize="none"
           placeholderTextColor={colors.black + '99'}
           {...input}
           secureTextEntry={hidden}
-          style={s.input}
+          style={[s.input, big && s.inputBig]}
         />
+        {right ? <Ionicons name={right} size={20} color={colors.black} /> : null}
         {secure && (
           <Pressable
             onPress={() => setHidden((h) => !h)}
@@ -58,6 +60,8 @@ const s = StyleSheet.create({
     color: colors.black,
     ...Platform.select({ web: { outlineStyle: 'none' } }),
   },
+  boxBig: { height: 'auto', minHeight: 110, alignItems: 'flex-start', paddingVertical: 12 },
+  inputBig: { height: 'auto', minHeight: 84, textAlignVertical: 'top' },
   eye: { flexDirection: 'row', alignItems: 'center', marginLeft: 8 },
   eyeText: { fontFamily: fonts.bold, fontSize: 12, color: colors.purple, marginLeft: 6 },
   helper: { fontFamily: fonts.body, fontSize: 13, color: colors.black, marginTop: 8 },
