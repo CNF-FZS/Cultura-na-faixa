@@ -53,7 +53,14 @@ export default function BuscaScreen() {
 
         <View style={s.resultsRow}>
           <Text style={s.count}>{count}</Text>
-          {filters.when ? <Text style={s.range}>{WHEN[filters.when].short}</Text> : null}
+
+          {filters.when.length > 0 ? (
+            <Text style={s.range}>
+              {filters.when
+                .map((period) => WHEN[period].short)
+                .join(' • ')}
+            </Text>
+          ) : null}
         </View>
 
         {results.map((e) => (
