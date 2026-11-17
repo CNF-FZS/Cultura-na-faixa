@@ -6,13 +6,58 @@ export const FILTERS = ['Tudo', 'Show', 'Dança', 'Exposição', 'Teatro', 'Cine
 export const REGIONS = ['Todas', 'Centro', 'Zona Norte', 'Zona Sul', 'Zona Leste', 'Zona Oeste'];
 export const CATEGORIES = ['Todas', 'Show', 'Dança', 'Exposição', 'Teatro', 'Cinema'];
 
-// Datas fictícias: nos eventos de exemplo, "hoje" é sexta, 23/10/2026.
-// Com eventos reais, calcule estas datas a partir de new Date().
+// Formata uma data para o padrão YYYY-MM-DD.
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
+
+// Obtém a data atual.
+const today = new Date();
+
+// Calcula a data daqui a 30 dias.
+const next30Days = new Date(today);
+next30Days.setDate(today.getDate() + 30);
+
+// Opções disponíveis no filtro "Quando?".
 export const WHEN = {
-  'Hoje': { from: '2026-10-23', to: '2026-10-23', short: '23 out 2026', helper: 'Hoje: 23 de outubro de 2026' },
-  'Amanhã': { from: '2026-10-24', to: '2026-10-24', short: '24 out 2026', helper: 'Amanhã: 24 de outubro de 2026' },
-  'Fim de semana': { from: '2026-10-24', to: '2026-10-25', short: '24–25 out 2026', helper: 'Fim de semana: 24 e 25 de outubro de 2026' },
-  'Próximos 7 dias': { from: '2026-10-23', to: '2026-10-29', short: '23–29 out 2026', helper: 'Próximos 7 dias: 23 a 29 de outubro de 2026' },
+  'Hoje': {
+    from: '2026-10-23',
+    to: '2026-10-23',
+    short: '23 out 2026',
+    helper: 'Hoje: 23 de outubro de 2026',
+  },
+
+  'Amanhã': {
+    from: '2026-10-24',
+    to: '2026-10-24',
+    short: '24 out 2026',
+    helper: 'Amanhã: 24 de outubro de 2026',
+  },
+
+  'Fim de semana': {
+    from: '2026-10-24',
+    to: '2026-10-25',
+    short: '24–25 out 2026',
+    helper: 'Fim de semana: 24 e 25 de outubro de 2026',
+  },
+
+  'Próximos 7 dias': {
+    from: '2026-10-23',
+    to: '2026-10-29',
+    short: '23–29 out 2026',
+    helper: 'Próximos 7 dias: 23 a 29 de outubro de 2026',
+  },
+
+  'Próximos 30 dias': {
+    from: formatDate(today),
+    to: formatDate(next30Days),
+    short: 'Próximos 30 dias',
+    helper: 'Eventos de hoje até os próximos 30 dias',
+  },
 };
 
 // Eventos fictícios. Depois é só trocar por uma chamada à API.
@@ -38,6 +83,7 @@ export const EVENTS = [
     title: 'Corpos da cidade',
     day: '2026-10-25',
     date: 'DOM, 25 OUT · 15H',
+    subtitle: 'Dança · Espetáculo contemporâneo',
     venue: 'Centro Cultural Vila Leste',
     address: 'Av. Vila Leste, 450 · Zona Leste',
     region: 'Zona Leste',
@@ -51,6 +97,7 @@ export const EVENTS = [
     title: 'Outros olhares',
     day: '2026-10-24',
     date: 'SÁB, 24 OUT · 10H',
+    subtitle: 'Exposição · Arte e fotografia',
     venue: 'Galeria Aurora',
     address: 'Rua da Aurora, 120 · Centro',
     region: 'Centro',
@@ -147,7 +194,7 @@ export const EVENTS = [
     region: 'Zona Oeste',
     category: 'Exposição',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
   {
     id: '10',
@@ -162,7 +209,7 @@ export const EVENTS = [
     region: 'Zona Leste',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
   {
     id: '11',
@@ -177,7 +224,7 @@ export const EVENTS = [
     region: 'Zona Norte',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
   {
     id: '12',
@@ -192,7 +239,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
   {
     id: '13',
@@ -222,7 +269,7 @@ export const EVENTS = [
     region: 'Zona Oeste',
     category: 'Cinema',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
   {
     id: '15',
@@ -237,7 +284,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Cinema',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.jpg'),
+    image: require('../../assets/logo-c.jpg'),
   },
 
 ];

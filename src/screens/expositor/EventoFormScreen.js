@@ -12,8 +12,16 @@ import Header from '../../components/Header';
 import Field from '../../components/Field';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
-import { AGES, COVERS, EMPTY_FORM, REQUIRED, buildEvent, validate } from './eventoUtils'; // ALTERAÇÃO (BORDA VERMELHA): REQUIRED adicionado
-
+//import { AGES, COVERS, EMPTY_FORM, REQUIRED, buildEvent, validate } from './eventoUtils'; // ALTERAÇÃO (BORDA VERMELHA): REQUIRED adicionado
+import {
+  AGES,
+  COVERS,
+  DEFAULT_COVER,
+  EMPTY_FORM,
+  REQUIRED,
+  buildEvent,
+  validate
+} from './eventoUtils';
 
 // ALTERAÇÃO (CALENDÁRIO): import do calendário nativo (celular)
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -200,7 +208,7 @@ export default function EventoFormScreen({ route, navigation }) {
   const salvar = () => {
     const msg = validate(f);
     if (msg) { setMostrarErros(true); return setErro(msg); } // ALTERAÇÃO (BORDA VERMELHA): liga as bordas vermelhas (antes: if (msg) return setErro(msg);)
-    const ev = buildEvent(f, cover ?? COVERS[0]);
+    const ev = buildEvent(f, cover ?? DEFAULT_COVER);
     base ? updateEvent(base.id, ev) : addEvent(ev);
     navigation.goBack();
   };

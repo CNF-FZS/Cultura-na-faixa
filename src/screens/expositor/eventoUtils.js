@@ -1,5 +1,8 @@
 // src/screens/expositor/eventoUtils.js
 // Converte o formulário em evento (datas, endereço, acesso por extenso) e valida os campos obrigatórios.
+
+export const DEFAULT_COVER = require('../../../assets/logo-c.jpg');
+
 export const COVERS = [
   require('../../../assets/roda-do-encontro.png'),
   require('../../../assets/corpos-da-cidade.png'),
@@ -9,7 +12,8 @@ export const COVERS = [
   require('../../../assets/cinema-na-praca.jpg'),
   require('../../../assets/movimento-em-cena.jpg'),
   require('../../../assets/danca-nas-ruas.jpg'),
-  require('../../../assets/memorias-em-cores.jpg')
+  require('../../../assets/memorias-em-cores.jpg'),
+  require('../../../assets/logo-c.jpg'),
 ];
 export const AGES = ['Livre', '10 anos', '12 anos', '14 anos', '16 anos', '18 anos'];
 export const EMPTY_FORM = {
