@@ -51,7 +51,6 @@ export default function CadastroScreen({ route, navigation }) {
         </View>
 
         {/* ALTERAÇÃO (PERFIL): lista suspensa igual à Categoria. Self: só Leitor e Expositor. Admin: os 3 perfis. */}
-        {/* ALTERAÇÃO (BORDA VERMELHA): error={vazio('role')} */}
         <Select
           label="Perfil *"
           value={f.role}
