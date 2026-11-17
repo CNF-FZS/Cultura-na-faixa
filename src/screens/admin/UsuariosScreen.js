@@ -24,8 +24,21 @@ export default function UsuariosScreen({ navigation }) {
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
       <ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        <Header label="Administrador" />
-        <Text style={s.title}>Usuários</Text>
+        {/* BOTÃO VOLTAR
+        <Pressable style={s.back} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={colors.purple} />
+          <Text style={s.backText}>Voltar</Text>
+        </Pressable> */}
+
+        {/* <Header label="Administrador" /> */}
+        
+        <Header
+          label="Administrador"
+          title="Usuários"
+          onBack={() => navigation.goBack()}
+        />
+
+        {/* <Text style={s.title}>Usuários</Text> */}
         <Text style={s.sub}>Pessoas que fazem parte do Cultura na Faixa.</Text>
 
         <View style={s.stats}>
@@ -68,12 +81,22 @@ export default function UsuariosScreen({ navigation }) {
         ))}
       </ScrollView>
 
-      <EditarPerfilModal
+      {/* <EditarPerfilModal
         visible={!!editar}
         user={editar ?? { phone: '', email: '', password: '' }}
         onClose={() => setEditar(null)}
         onSave={(dados) => { updateUser(dados, editar.id); setEditar(null); }}
+      /> */}
+
+      {/* EDITAR PERFIL COMO ADMIN OU EXPO - alteração junto com o arquivo AuthContext.js na pasta context  */}
+      <EditarPerfilModal
+        visible={!!editar}
+        user={editar ?? { phone: '', email: '', password: '', role: 'expositor' }}
+        canEditRole={editar?.id !== user.id}
+        onClose={() => setEditar(null)}
+        onSave={(dados) => { updateUser(dados, editar.id); setEditar(null); }}
       />
+
       <RemoverUsuarioModal user={remover} onClose={() => setRemover(null)} onConfirm={() => { removeUser(remover.id); setRemover(null); }} />
     </SafeAreaView>
   );

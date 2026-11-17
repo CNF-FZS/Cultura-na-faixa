@@ -5,7 +5,8 @@ import { View, Text, TextInput, Pressable, StyleSheet, Platform } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../theme';
 
-export default function Field({ label, helper, right, secure = false, showLabel = false, style, ...input }) {
+// ALTERAÇÃO (BORDA VERMELHA): nova prop "error" (true = borda vermelha no input)
+export default function Field({ label, helper, right, secure = false, showLabel = false, error = false, style, ...input }) {
   const [hidden, setHidden] = useState(secure);
   const big = !!input.multiline; // campo de texto longo
   // Com o texto "Mostrar" (login) o ícone mostra a ação; sem ele, mostra o estado.
@@ -14,7 +15,8 @@ export default function Field({ label, helper, right, secure = false, showLabel 
   return (
     <View style={[s.wrap, style]}>
       {label ? <Text style={s.label}>{label}</Text> : null}
-      <View style={[s.box, big && s.boxBig]}>
+      {/* ALTERAÇÃO (BORDA VERMELHA): s.boxErro aplicado quando error é true */}
+      <View style={[s.box, big && s.boxBig, error && s.boxErro]}>
         <TextInput
           autoCapitalize="none"
           placeholderTextColor={colors.black + '99'}
@@ -65,4 +67,6 @@ const s = StyleSheet.create({
   eye: { flexDirection: 'row', alignItems: 'center', marginLeft: 8 },
   eyeText: { fontFamily: fonts.bold, fontSize: 12, color: colors.purple, marginLeft: 6 },
   helper: { fontFamily: fonts.body, fontSize: 13, color: colors.black, marginTop: 8 },
+  // ALTERAÇÃO (BORDA VERMELHA): estilo da borda de erro
+  boxErro: { borderColor: '#D32F2F', borderWidth: 1.5 },
 });

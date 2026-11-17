@@ -39,6 +39,11 @@ export function AuthProvider({ children }) {
     if (autoLogin) setUser(u);
   };
   const updateUser = (patch, id = user?.id) => {
+    // Alteração
+    const { role, ...resto } = patch;
+    // só administrador pode alterar o tipo de conta (role)
+    const dados = role !== undefined && user?.role === 'administrador' ? { ...resto, role } : resto;
+
     setUsers((l) => l.map((u) => (u.id === id ? { ...u, ...patch } : u)));
     setUser((u) => (u && u.id === id ? { ...u, ...patch } : u));
   };

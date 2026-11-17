@@ -23,8 +23,19 @@ export default function EventosScreen({ navigation }) {
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
       <ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        <Header label={user.role === 'administrador' ? 'Administrador' : 'Expositor'} />
-        <Text style={s.title}>Eventos</Text>
+        {/* BOTAÕ VOLTAR
+        <Pressable style={s.back} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={colors.purple} />
+          <Text style={s.backText}>Voltar</Text>
+        </Pressable> */}
+        {/* <Header onBack={() => navigation.goBack()} label={user.role === 'administrador' ? 'Administrador' : 'Expositor'} /> */}
+
+        <Header
+          onBack={() => navigation.goBack()}
+          label={user.role === 'administrador' ? 'Administrador' : 'Expositor'}
+          title="Eventos"
+        />
+        {/* <Text style={s.title}>Eventos</Text> */}
 
         <View style={s.stat}>
           <Text style={s.statNum}>{events.length}</Text>

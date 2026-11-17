@@ -1,12 +1,13 @@
 // src/screens/admin/RelatoriosScreen.js
 // "Relatórios" (administrador): totais de eventos e usuários, eventos por categoria e resumo por região.
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../../theme';
 import { useAuth } from '../../context/AuthContext';
 import { useEvents } from '../../context/EventsContext';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const agrupar = (lista, chave) => {
   const out = {};
@@ -22,12 +23,27 @@ export default function RelatoriosScreen() {
   const porRegiao = agrupar(events, 'region');
   const maior = Math.max(1, ...porCategoria.map(([, l]) => l.length));
   const n = (role) => users.filter((u) => u.role === role).length;
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
       <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
-        <Header label="Administrador" />
-        <Text style={s.title}>Relatórios</Text>
+
+        {/* BOTÃO VOLTAR
+        <Pressable style={s.back} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={colors.purple} />
+          <Text style={s.backText}>Voltar</Text>
+        </Pressable> */}
+
+        {/* <Header label="Administrador" /> */}
+
+        <Header
+          label="Administrador"
+          title="Relatórios"
+          onBack={() => navigation.goBack()}
+        />
+
+        {/* <Text style={s.title}>Relatórios</Text> */}
 
         <View style={s.rowBetween}>
           <Text style={s.bold}>Período</Text>

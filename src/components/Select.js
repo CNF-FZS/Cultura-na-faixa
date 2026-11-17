@@ -5,7 +5,8 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../theme';
 
-export default function Select({ label, value, options, placeholder, helper, onChange, style }) {
+// ALTERAÇÃO (BORDA VERMELHA): nova prop "error" (true = borda vermelha na caixa)
+export default function Select({ label, value, options, placeholder, helper, onChange, error = false, style }) {
   const [open, setOpen] = useState(false);
   const current = options.find((o) => (o.value ?? o) === value);
   const text = current ? current.label ?? current : null;
@@ -13,7 +14,8 @@ export default function Select({ label, value, options, placeholder, helper, onC
   return (
     <View style={[s.wrap, style]}>
       {label ? <Text style={s.label}>{label}</Text> : null}
-      <Pressable onPress={() => setOpen((o) => !o)} style={s.box} accessibilityRole="button">
+      {/* ALTERAÇÃO (BORDA VERMELHA): s.boxErro aplicado quando error é true */}
+      <Pressable onPress={() => setOpen((o) => !o)} style={[s.box, error && s.boxErro]} accessibilityRole="button">
         <Text style={[s.value, !text && { color: colors.black + '99' }]}>{text ?? placeholder}</Text>
         <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={20} color={colors.black} />
       </Pressable>
@@ -41,4 +43,6 @@ const s = StyleSheet.create({
   optOn: { backgroundColor: colors.purple },
   optText: { fontFamily: fonts.body, fontSize: 15, color: colors.black },
   helper: { fontFamily: fonts.body, fontSize: 13, color: colors.black, marginTop: 8 },
+  // ALTERAÇÃO (BORDA VERMELHA): estilo da borda de erro
+  boxErro: { borderColor: '#D32F2F', borderWidth: 1.5 },
 });

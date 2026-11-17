@@ -56,7 +56,7 @@ export const EVENTS = [
     region: 'Centro',
     category: 'Exposição',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
 
   {
@@ -72,7 +72,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Show',
     price: 'Grátis',
-    image: require('../../assets/roda-do-encontro.png'),
+    image: require('../../assets/sons-da-quebrada.jpg'),
   },
   {
     id: '5',
@@ -87,7 +87,7 @@ export const EVENTS = [
     region: 'Zona Oeste',
     category: 'Show',
     price: 'Grátis',
-    image: require('../../assets/roda-do-encontro.png'),
+    image: require('../../assets/jazz-na-praca.jpg'),
   },
   {
     id: '6',
@@ -102,7 +102,7 @@ export const EVENTS = [
     region: 'Zona Leste',
     category: 'Dança',
     price: 'Grátis',
-    image: require('../../assets/corpos-da-cidade.png'),
+    image: require('../../assets/movimento-em-cena.jpg'),
   },
   {
     id: '7',
@@ -117,7 +117,7 @@ export const EVENTS = [
     region: 'Zona Norte',
     category: 'Dança',
     price: 'Grátis',
-    image: require('../../assets/corpos-da-cidade.png'),
+    image: require('../../assets/danca-nas-ruas.jpg'),
   },
   {
     id: '8',
@@ -132,7 +132,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Exposição',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/memorias-em-cores.jpg'),
   },
   {
     id: '9',
@@ -147,7 +147,7 @@ export const EVENTS = [
     region: 'Zona Oeste',
     category: 'Exposição',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
   {
     id: '10',
@@ -162,7 +162,7 @@ export const EVENTS = [
     region: 'Zona Leste',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
   {
     id: '11',
@@ -177,7 +177,7 @@ export const EVENTS = [
     region: 'Zona Norte',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
   {
     id: '12',
@@ -192,7 +192,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Teatro',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
   {
     id: '13',
@@ -207,7 +207,7 @@ export const EVENTS = [
     region: 'Centro',
     category: 'Cinema',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/cinema-na-praca.jpg'),
   },
   {
     id: '14',
@@ -222,7 +222,7 @@ export const EVENTS = [
     region: 'Zona Oeste',
     category: 'Cinema',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
   {
     id: '15',
@@ -237,7 +237,7 @@ export const EVENTS = [
     region: 'Zona Sul',
     category: 'Cinema',
     price: 'Grátis',
-    image: require('../../assets/outros-olhares.png'),
+    image: require('../../assets/outros-olhares.jpg'),
   },
 
 ];

@@ -3,7 +3,13 @@
 export const COVERS = [
   require('../../../assets/roda-do-encontro.png'),
   require('../../../assets/corpos-da-cidade.png'),
-  require('../../../assets/outros-olhares.png'),
+  require('../../../assets/outros-olhares.jpg'),
+  require('../../../assets/jazz-na-praca.jpg'),
+  require('../../../assets/sons-da-quebrada.jpg'),
+  require('../../../assets/cinema-na-praca.jpg'),
+  require('../../../assets/movimento-em-cena.jpg'),
+  require('../../../assets/danca-nas-ruas.jpg'),
+  require('../../../assets/memorias-em-cores.jpg')
 ];
 export const AGES = ['Livre', '10 anos', '12 anos', '14 anos', '16 anos', '18 anos'];
 export const EMPTY_FORM = {
@@ -11,7 +17,8 @@ export const EMPTY_FORM = {
   placeName: '', cep: '', street: '', number: '', complement: '', district: '', city: 'São Paulo', uf: 'SP',
   region: '', transport: '', age: '', accessibility: '', entry: '', linkSignup: '', linkInfo: '',
 };
-const REQUIRED = ['title', 'description', 'category', 'startDate', 'startTime', 'placeName', 'cep', 'street', 'number', 'district', 'city', 'uf', 'region', 'age'];
+
+export const REQUIRED = ['title', 'description', 'category', 'startDate', 'startTime', 'placeName', 'cep', 'street', 'number', 'district', 'city', 'uf', 'region', 'age'];
 
 const DIAS = 'domingo,segunda-feira,terça-feira,quarta-feira,quinta-feira,sexta-feira,sábado'.split(',');
 const MESES = 'janeiro,fevereiro,março,abril,maio,junho,julho,agosto,setembro,outubro,novembro,dezembro'.split(',');
