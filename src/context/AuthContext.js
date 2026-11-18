@@ -2,7 +2,7 @@
 // Contas e login. Sem login o app funciona como visitante (user = null). Contas fictícias; trocar por API depois.
 import { createContext, useContext, useState } from 'react';
 
-export const ROLE_LABEL = { usuario: 'Leitor', expositor: 'Expositor', administrador: 'Administrador' };
+export const ROLE_LABEL = { usuario: 'Usuário', expositor: 'Expositor', administrador: 'Administrador' };
 export const initials = (name) => name.split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
 const hoje = () => {
   const d = new Date();

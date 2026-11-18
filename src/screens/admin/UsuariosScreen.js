@@ -31,7 +31,7 @@ export default function UsuariosScreen({ navigation }) {
         </Pressable> */}
 
         {/* <Header label="Administrador" /> */}
-        
+
         <Header
           label="Administrador"
           title="Usuários"
@@ -89,10 +89,19 @@ export default function UsuariosScreen({ navigation }) {
       /> */}
 
       {/* EDITAR PERFIL COMO ADMIN OU EXPO - alteração junto com o arquivo AuthContext.js na pasta context  */}
-      <EditarPerfilModal
+      {/* <EditarPerfilModal
         visible={!!editar}
         user={editar ?? { phone: '', email: '', password: '', role: 'expositor' }}
         canEditRole={editar?.id !== user.id}
+        onClose={() => setEditar(null)}
+        onSave={(dados) => { updateUser(dados, editar.id); setEditar(null); }}
+      /> */}
+      {/* ALTERAÇÃO (SENHA ATUAL): admin editando outro usuário não precisa da senha atual */}
+      <EditarPerfilModal
+        visible={!!editar}
+        user={editar ?? { phone: '', email: '', password: '', role: 'usuario' }}
+        canEditRole={user.role === 'administrador' && editar?.id !== user.id}
+        askCurrentPassword={editar?.id === user.id}
         onClose={() => setEditar(null)}
         onSave={(dados) => { updateUser(dados, editar.id); setEditar(null); }}
       />

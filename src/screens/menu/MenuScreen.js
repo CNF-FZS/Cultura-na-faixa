@@ -10,10 +10,8 @@ import {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts } from '../../theme';
-
 import { useEvents } from '../../context/EventsContext';
 import { useFavorites } from '../../context/FavoritesContext';
-
 import Filters from '../../components/Filters';
 import FeaturedCarousel from '../../components/FeaturedCarousel';
 import EventCard from '../../components/EventCard';
@@ -22,20 +20,21 @@ export default function MenuScreen() {
   const { events: todos } = useEvents();
   const { isFavorite } = useFavorites();
 
-  // Seleciona até 3 eventos recomendados.
   const featured = todos
-  .filter((e) => !isFavorite(e.id))
-  .slice(0, 3);
+    .filter((e) => !isFavorite(e.id))
+    .slice(0, 3);
 
   // Mantém os  que foram favoritados.
   const agenda = todos.filter((e) => isFavorite(e.id));
 
   const [filter, setFilter] = useState('Tudo');
 
-  // Aplica os filtros da agenda.
   const events = agenda.filter(
     (e) => filter === 'Tudo' || e.category === filter
   );
+
+  // limite de 2 eventos na agenda
+  const agendaVisivel = events.slice(0, 2);
 
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
@@ -49,20 +48,28 @@ export default function MenuScreen() {
           accessibilityLabel="Cultura na Faixa"
         />
 
-        <Filters
+        {/* <Filters
           active={filter}
           onChange={setFilter}
-        />
+        /> */}
 
         <View style={[s.rowBetween, s.kicker]}>
-          <Text style={s.kickerLeft}>
+          <Text style={s.sectionTitle2}>
             RECOMENDADOS PARA VOCÊ
           </Text>
 
-          <Text style={s.kickerRight}>
+          {/* <Text style={s.kickerLeft}>
+            RECOMENDADOS PARA VOCÊ
+          </Text> */}
+
+          {/* <Text style={s.kickerRight}>
             24 e 25 de outubro
-          </Text>
+          </Text> */}
         </View>
+
+        <Text style={s.kickerRight}>
+          24 e 25 de outubro
+        </Text>
 
         {featured.length > 0 && (
           <FeaturedCarousel events={featured} />
@@ -86,7 +93,8 @@ export default function MenuScreen() {
           </Text>
         )}
 
-        {events.map((e) => (
+        {/* ALTERAÇÃO (AGENDA): antes era events.map(...), que mostrava todos. Agora mostra só 2 */}
+        {agendaVisivel.map((e) => (
           <EventCard
             key={e.id}
             event={e}
@@ -133,10 +141,19 @@ const s = StyleSheet.create({
     letterSpacing: 0.3,
   },
 
+  // kickerRight: {
+  //   fontFamily: fonts.body,
+  //   fontSize: 12,
+  //   color: colors.black,
+  // },
+
   kickerRight: {
     fontFamily: fonts.body,
     fontSize: 12,
     color: colors.black,
+    paddingBottom: 12,
+    paddingRight: 2,
+    textAlign: 'right',
   },
 
   sectionHead: {
@@ -147,6 +164,12 @@ const s = StyleSheet.create({
   sectionTitle: {
     fontFamily: fonts.title,
     fontSize: 22,
+    color: colors.black,
+  },
+
+  sectionTitle2: {
+    fontFamily: fonts.title,
+    fontSize: 24,
     color: colors.black,
   },
 

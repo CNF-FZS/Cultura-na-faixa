@@ -10,27 +10,75 @@ import { ROLE_LABEL } from '../../context/AuthContext';
 const ROLES = ['usuario', 'expositor', 'administrador'];
 
 
-export default function EditarPerfilModal({ visible, user, canEditRole = false, onSave, onClose }) {
-  const [draft, setDraft] = useState({ phone: '', email: '', password: '', role: user.role });
+// ALTERAÇÃO (SENHA ATUAL): nova prop "askCurrentPassword" (true = pede a senha atual para trocar a senha)
+export default function EditarPerfilModal({ visible, user, canEditRole = false, askCurrentPassword = true, onSave, onClose }) {
+  // ALTERAÇÃO (SENHA ATUAL): o draft agora tem "atual" e "nova" (antes: password: '')
+  const [draft, setDraft] = useState({ phone: '', email: '', atual: '', nova: '', role: user.role });
+  const [erroAtual, setErroAtual] = useState(false); // ALTERAÇÃO (SENHA ATUAL): borda vermelha na senha atual
+  const [erroNova, setErroNova] = useState(false);   // ALTERAÇÃO (SENHA ATUAL): borda vermelha na nova senha
+  const [msg, setMsg] = useState('');                // ALTERAÇÃO (SENHA ATUAL): mensagem de erro
 
   useEffect(() => {
     if (visible) {
-      setDraft({ phone: user.phone, email: user.email, password: user.password, role: user.role });
+      // ALTERAÇÃO (SENHA ATUAL): os campos de senha começam vazios (antes: password: user.password)
+      setDraft({ phone: user.phone, email: user.email, atual: '', nova: '', role: user.role });
+      setErroAtual(false);
+      setErroNova(false);
+      setMsg('');
     }
   }, [visible]);
 
   const set = (key) => (value) => setDraft((d) => ({ ...d, [key]: value }));
 
   const salvar = () => {
-    const { role, ...resto } = draft;
-    onSave(canEditRole ? draft : resto); // só envia o role quando permitido
+    // ALTERAÇÃO (SENHA ATUAL): separa os campos de senha do restante
+    const { role, atual, nova, ...resto } = draft;
+
+    // ALTERAÇÃO (SENHA ATUAL): se mexeu em alguma senha, confere a senha atual
+    if (askCurrentPassword && (atual || nova) && atual !== user.password) {
+      setErroAtual(true);
+      setMsg('Senha atual incorreta.');
+      return;
+    }
+
+    // ALTERAÇÃO (SENHA ATUAL): mesma regra do cadastro (8+ caracteres, letras e números)
+    if (nova && (nova.length < 8 || !/[A-Za-z]/.test(nova) || !/\d/.test(nova))) {
+      setErroNova(true);
+      setMsg('A nova senha precisa ter pelo menos 8 caracteres, com letras e números.');
+      return;
+    }
+
+    // ALTERAÇÃO (SENHA ATUAL): só envia a senha se foi digitada uma nova
+    const dados = nova ? { ...resto, password: nova } : resto;
+    onSave(canEditRole ? { ...dados, role } : dados); // só envia o role quando permitido
   };
 
   return (
     <ModalCard visible={visible} onClose={onClose} icon="pencil-outline" title="Editar">
       <Field label="Telefone" value={draft.phone} onChangeText={set('phone')} keyboardType="phone-pad" />
       <Field label="E-mail" value={draft.email} onChangeText={set('email')} keyboardType="email-address" />
-      <Field label="Senha" secure value={draft.password} onChangeText={set('password')} />
+
+      {/* ALTERAÇÃO (SENHA ATUAL): antes era um único <Field label="Senha" secure ... />.
+          Agora: senha atual (só quando askCurrentPassword) e, logo abaixo, a nova senha. */}
+      {askCurrentPassword && (
+        <Field
+          label="Senha atual"
+          secure
+          placeholder="Digite sua senha atual"
+          value={draft.atual}
+          onChangeText={(v) => { set('atual')(v); setErroAtual(false); setMsg(''); }}
+          error={erroAtual}
+        />
+      )}
+      <Field
+        label="Nova senha"
+        secure
+        placeholder="Digite a nova senha"
+        value={draft.nova}
+        onChangeText={(v) => { set('nova')(v); setErroNova(false); setMsg(''); }}
+        error={erroNova}
+      />
+      {msg ? <Text style={s.erro}>{msg}</Text> : null}
 
       {canEditRole && (
         <>
@@ -62,4 +110,6 @@ const s = StyleSheet.create({
   roleBtnOn: { backgroundColor: colors.purple, borderColor: colors.purple },
   roleText: { fontFamily: fonts.body, fontSize: 13, color: colors.black },
   roleTextOn: { fontFamily: fonts.bold, color: colors.white },
+  // ALTERAÇÃO (SENHA ATUAL): mensagem de erro
+  erro: { fontFamily: fonts.bold, fontSize: 13, color: '#D32F2F', marginBottom: 12 },
 });

@@ -1,5 +1,5 @@
 // src/navigation/TabNavigator.js
-// Barra de abas inferior: Explorar, Busca, Favoritos e Perfil.
+// Barra de abas inferior: Início, Busca, Favoritos e Perfil.
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,14 +31,15 @@ export default function TabNavigator() {
           borderTopColor: colors.green,
         },
         tabBarIcon: ({ color }) => <Ionicons name={ICONS[route.name]} size={26} color={color} />,
-        tabBarLabel: ({ focused, color }) => (
+        tabBarLabel: ({ focused, color, children }) => (
           <Text style={{ fontFamily: focused ? fonts.bold : fonts.body, fontSize: 12, color }}>
-            {route.name}
+            {children}
           </Text>
         ),
       })}
     >
-      <Tab.Screen name="Explorar" component={MenuScreen} />
+      {/* adicionar o title: inicio para não desaparecer o icone */}
+      <Tab.Screen name="Explorar" component={MenuScreen} options={{ title: 'Início' }} />
       <Tab.Screen name="Busca" component={BuscaScreen} />
       <Tab.Screen name="Favoritos" component={FavoritosScreen} />
       <Tab.Screen name="Perfil" component={PerfilStack} />

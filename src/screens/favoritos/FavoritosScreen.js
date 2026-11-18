@@ -39,7 +39,7 @@ export default function FavoritosScreen({ navigation }) {
           <EventCard key={e.id} event={e} onRemove={() => toggle(e.id)} />
         ))}
 
-        <Button label="Descobrir mais eventos" variant="outline" icon="arrow-forward" onPress={() => navigation.navigate('Explorar')} />
+        <Button label="Descobrir mais eventos" variant="outline" icon="arrow-forward" onPress={() => navigation.navigate('Busca')} />
       </ScrollView>
     </SafeAreaView>
   );
