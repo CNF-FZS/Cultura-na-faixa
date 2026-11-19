@@ -35,7 +35,9 @@ export default function PerfilScreen({ navigation }) {
         <Header label={role.label} />
 
         <View style={s.identity}>
-          <View style={s.avatar} />
+          <View style={s.avatar}>
+            <Ionicons name="person" size={48} color={colors.white} />
+          </View>
           <Text style={s.name}>{user.displayName}</Text>
         </View>
 
@@ -79,7 +81,15 @@ const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.white },
   content: { paddingHorizontal: 24, paddingTop: 16, paddingBottom: 24 },
   identity: { flexDirection: 'row', alignItems: 'center', marginTop: 24 },
-  avatar: { width: 90, height: 90, borderRadius: 45, backgroundColor: colors.purple },
+  //avatar: { width: 90, height: 90, borderRadius: 45, backgroundColor: colors.purple },
+  avatar: {
+  width: 90,
+  height: 90,
+  borderRadius: 45,
+  backgroundColor: colors.purple,
+  alignItems: 'center',
+  justifyContent: 'center',
+  },
   name: { flex: 1, marginLeft: 36, fontFamily: fonts.title, fontSize: 28, color: colors.black },
   section: { fontFamily: fonts.title, fontSize: 22, color: colors.black, marginTop: 36, marginBottom: 20 },
   logout: { alignItems: 'center', padding: 16, marginTop: 8 },

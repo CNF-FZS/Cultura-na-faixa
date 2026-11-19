@@ -17,6 +17,30 @@ const agrupar = (lista, chave) => {
 };
 const plural = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
 
+//novo
+const obterMes = (since) => {
+  const meses = {
+    jan: '01',
+    fev: '02',
+    mar: '03',
+    abr: '04',
+    mai: '05',
+    jun: '06',
+    jul: '07',
+    ago: '08',
+    set: '09',
+    out: '10',
+    nov: '11',
+    dez: '12',
+  };
+
+  const partes = since?.split(' ') ?? [];
+
+  if (partes.length !== 3) return '';
+
+  return `${partes[2]}-${meses[partes[1].toLowerCase()] ?? ''}`;
+};
+
 const MESES_TESTE = [
   { value: '2026-08', label: 'Agosto de 2026' },
   { value: '2026-09', label: 'Setembro de 2026' },
@@ -40,6 +64,25 @@ export default function RelatoriosScreen() {
   const porRegiao = agrupar(events, 'region');
   const maior = Math.max(1, ...porCategoria.map(([, l]) => l.length));
   const n = (role) => users.filter((u) => u.role === role).length;
+
+  //NOVo
+  // Usuários cadastrados no mês selecionado.
+  const usuariosDoMes = users.filter(
+    (u) => obterMes(u.since) === periodo
+  );
+
+  // Separação por tipo de conta.
+  const comunsDoMes = usuariosDoMes.filter(
+    (u) => u.role === 'usuario'
+  ).length;
+
+  const expositoresDoMes = usuariosDoMes.filter(
+    (u) => u.role === 'expositor'
+  ).length;
+
+  const administradoresDoMes = usuariosDoMes.filter(
+    (u) => u.role === 'administrador'
+  ).length;
 
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
@@ -95,19 +138,36 @@ export default function RelatoriosScreen() {
         </View>
 
         <View style={[s.card, s.row]}>
-          <Text style={s.cardNum}>{users.length}</Text>
+          <Text style={s.cardNum}>{usuariosDoMes.length}</Text>
+
           <View style={{ flex: 1, marginLeft: 14 }}>
-            <Text style={s.cardTitle}>Usuários cadastrados</Text>
-            <Text style={s.small}>{plural(n('usuario'), 'leitor', 'leitores')} · {plural(n('expositor'), 'expositor', 'expositores')} · {plural(n('administrador'), 'administrador', 'administradores')}</Text>
+            <Text style={s.cardTitle}>Novos usuários cadastrados</Text>
+
+            <Text style={s.small}>
+            {plural(comunsDoMes, 'usuário comum', 'usuários comuns')}
+            </Text>
+
+            <Text style={s.small}>
+            {plural(expositoresDoMes, 'expositor', 'expositores')}
+            </Text>
+
+            <Text style={s.small}>
+            {plural(administradoresDoMes, 'administrador', 'administradores')}
+            </Text>
           </View>
+
           <Ionicons name="person" size={24} color={colors.purple} />
         </View>
 
         <View style={[s.card, { padding: 16 }]}>
           <Text style={s.h}>Eventos por categoria</Text>
-          <Text style={[s.small, { marginBottom: 14 }]}>Quantidade · {plural(events.length, 'evento ativo', 'eventos ativos')}</Text>
+          <Text style={[s.small, { marginBottom: 14 }]}>Quantidade · {plural(events.length, 'evento cadastrado', 'eventos cadastrados')}</Text>
           {/* ALTERAÇÃO (PERÍODO): mensagem quando o mês não tem eventos */}
-          {events.length === 0 && <Text style={s.small}>Nenhum evento neste período.</Text>}
+          {events.length === 0 && (
+            <Text style={s.small}>
+              Nenhum evento foi cadastrado neste mês.
+            </Text>
+          )}
           {porCategoria.map(([cat, lista]) => (
             <View key={cat} style={{ marginBottom: 14 }}>
               <View style={s.row}>

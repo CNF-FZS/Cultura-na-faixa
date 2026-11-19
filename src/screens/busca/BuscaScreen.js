@@ -341,8 +341,10 @@ const s = StyleSheet.create({
   },
 
   note: {
-    paddingHorizontal: 16,
+    padding: 20,
     marginTop: 14,
+    borderWidth: 1,
+    borderColor: colors.purple,
   },
 
   noteTitle: {
