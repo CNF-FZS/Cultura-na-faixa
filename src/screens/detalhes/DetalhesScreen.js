@@ -1,5 +1,5 @@
 // Tela "O seu próximo rolê": todos os detalhes de um evento (quando, onde, acesso) e botões de inscrição.
-import { View, Text, Image, ScrollView, Pressable, Linking, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, Pressable, Linking, StyleSheet, Share, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../../theme';
@@ -30,6 +30,34 @@ export default function DetalhesScreen({ route, navigation }) {
   if (!e) return null; // evento excluído enquanto a tela estava aberta
   const fav = isFavorite(e.id);
 
+
+
+  // compartilhar
+  const compartilhar = async () => {
+    const mensagem = [
+      e.title,
+      e.date,
+      e.venue,
+      'Entrada gratuita · Cultura na Faixa',
+      e.links?.info,
+    ].filter(Boolean).join('\n');
+
+    try {
+      if (Platform.OS === 'web') {
+        if (navigator.share) {
+          await navigator.share({ title: e.title, text: mensagem });
+        } else {
+          await navigator.clipboard.writeText(mensagem);
+          window.alert('Informações do evento copiadas! Cole onde quiser compartilhar.');
+        }
+      } else {
+        await Share.share({ title: e.title, message: mensagem });
+      }
+    } catch {
+      // o usuário cancelou ou o navegador bloqueou: não faz nada
+    }
+  };
+
   return (
     <SafeAreaView style={s.screen}>
       <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
@@ -37,10 +65,10 @@ export default function DetalhesScreen({ route, navigation }) {
           <Pressable onPress={() => navigation.goBack()} hitSlop={12} accessibilityLabel="Voltar">
             <Ionicons name="arrow-back" size={26} color={colors.purple} />
           </Pressable>
-          <Text style={s.topTitle}>O seu próximo rolê</Text>
-          <Pressable onPress={() => requireLogin(() => toggle(e.id))} style={s.heart} accessibilityLabel={fav ? 'Remover dos favoritos' : 'Favoritar'}>
+          <Text style={[s.topTitle, { flex: 1, textAlign: 'center' }]}>O seu próximo rolê</Text>
+          {/* <Pressable onPress={() => requireLogin(() => toggle(e.id))} style={s.heart} accessibilityLabel={fav ? 'Remover dos favoritos' : 'Favoritar'}>
             <Ionicons name={fav ? 'heart' : 'heart-outline'} size={24} color={colors.purple} />
-          </Pressable>
+          </Pressable> */}
         </View>
 
         <Image source={e.image} style={s.image} />
@@ -55,7 +83,19 @@ export default function DetalhesScreen({ route, navigation }) {
           )}
         </View>
 
-        <Text style={s.title}>{e.title}</Text>
+
+        {/* botão favorito e compartilhar */}
+        <Text style={s.titleInline}>{e.title}</Text>
+        <View style={s.actions}>
+          <Pressable onPress={compartilhar} style={s.heart} accessibilityLabel="Compartilhar evento">
+            <Ionicons name="share-social-outline" size={20} color={colors.purple} />
+          </Pressable>
+          <Pressable onPress={() => requireLogin(() => toggle(e.id))} style={s.heart} accessibilityLabel={fav ? 'Remover dos favoritos' : 'Favoritar'}>
+            <Ionicons name={fav ? 'heart' : 'heart-outline'} size={20} color={colors.purple} />
+          </Pressable>
+        </View>
+
+
         {e.artist ? <Text style={s.artist}>{e.artist}</Text> : null}
         {e.description ? <Text style={s.desc}>{e.description}</Text> : null}
 
@@ -113,4 +153,11 @@ const s = StyleSheet.create({
   noteText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, color: colors.purple },
   more: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 14, marginTop: 10 },
   moreText: { fontFamily: fonts.bold, fontSize: 13, color: colors.purple, marginLeft: 8 },
+
+  // botão favorito 
+  titleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 },
+  titleInline: { fontFamily: fonts.title, fontSize: 32, color: colors.black, marginTop: 14 },
+  actions: { flexDirection: 'row', gap: 8, marginTop: 12 },
+  // círculo menor (antes: width: 44, height: 44, borderRadius: 22)
+  heart: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.green, alignItems: 'center', justifyContent: 'center' },
 });
