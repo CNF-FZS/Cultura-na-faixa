@@ -1,4 +1,3 @@
-// src/screens/detalhes/DetalhesScreen.js
 // Tela "O seu próximo rolê": todos os detalhes de um evento (quando, onde, acesso) e botões de inscrição.
 import { View, Text, Image, ScrollView, Pressable, Linking, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -97,7 +96,7 @@ const s = StyleSheet.create({
   top: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
   topTitle: { fontFamily: fonts.bold, fontSize: 14, color: colors.black },
   heart: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.green, alignItems: 'center', justifyContent: 'center' },
-  image: { width: '100%', height: 245, borderRadius: 14 },
+  image: { width: '100%', height: 245 },
   tags: { flexDirection: 'row', alignItems: 'center', marginTop: 14, minHeight: 36 },
   tag: { fontFamily: fonts.bold, fontSize: 14, color: colors.purple, paddingHorizontal: 12 },
   saved: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.green, paddingHorizontal: 12, paddingVertical: 8, marginLeft: 6 },

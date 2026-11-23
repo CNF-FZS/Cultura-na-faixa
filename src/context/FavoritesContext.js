@@ -1,4 +1,3 @@
-// src/context/FavoritesContext.js
 // Guarda quais eventos estão favoritados e compartilha isso entre todas as telas.
 import { createContext, useCallback, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';

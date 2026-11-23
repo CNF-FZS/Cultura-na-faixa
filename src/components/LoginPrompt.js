@@ -1,4 +1,3 @@
-// src/components/LoginPrompt.js
 // Aviso para visitantes (Favoritos e Perfil), com botões para entrar ou criar conta.
 import { Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

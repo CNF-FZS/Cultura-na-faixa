@@ -1,4 +1,3 @@
-// src/screens/cadastro/CadastroScreen.js
 // Tela "Cadastrar": cria uma conta. Vinda do Login (self) cria um leitor; vinda de Usuários, o admin escolhe o perfil.
 import { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native'; // ALTERAÇÃO (PERFIL): Pressable removido (não é mais usado)
@@ -10,10 +9,9 @@ import Field from '../../components/Field';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
 
-// ALTERAÇÃO (PERFIL): o perfil 'usuario' aparece como "Usuário" nesta lista (antes vinha "Leitor" do ROLE_LABEL)
 const PERFIS = Object.entries(ROLE_LABEL).map(([value, label]) => ({ value, label: value === 'usuario' ? 'Usuário' : label }));// ALTERAÇÃO (PERFIL): perfis que a própria pessoa pode escolher ao se cadastrar (administrador fica de fora)
 const PERFIS_SELF = PERFIS.filter((p) => p.value !== 'administrador');
-// ALTERAÇÃO (BORDA VERMELHA): campos obrigatórios (os mesmos que o "salvar" confere)
+// BORDA VERMELHA: campos obrigatórios (os mesmos que o "salvar" confere)
 const REQUIRED = ['role', 'name', 'email', 'password', 'confirm'];
 
 export default function CadastroScreen({ route, navigation }) {
@@ -24,17 +22,17 @@ export default function CadastroScreen({ route, navigation }) {
   const [mostrarErros, setMostrarErros] = useState(false); // ALTERAÇÃO (BORDA VERMELHA): vira true quando tenta salvar com erro
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v }));
 
-  // ALTERAÇÃO (BORDA VERMELHA): true se o campo é obrigatório, está vazio e o usuário já tentou salvar
+  //BORDA VERMELHA: true se o campo é obrigatório, está vazio e o usuário já tentou salvar
   const vazio = (k) => mostrarErros && REQUIRED.includes(k) && !String(f[k] ?? '').trim();
 
   const salvar = () => {
     const email = f.email.trim().toLowerCase();
-    // ALTERAÇÃO (BORDA VERMELHA): liga as bordas vermelhas se faltar campo obrigatório (antes: só setErro)
+    // BORDA VERMELHA: liga as bordas vermelhas se faltar campo obrigatório (antes: só setErro)
     if (!f.role || !f.name.trim() || !email || !f.password) { setMostrarErros(true); return setErro('Preencha todos os campos obrigatórios (*).'); }
     if (!/^\S+@\S+\.\S+$/.test(email)) return setErro('Confira o e-mail digitado.');
     if (f.password.length < 8 || !/[A-Za-z]/.test(f.password) || !/\d/.test(f.password))
       return setErro('A senha precisa ter pelo menos 8 caracteres, com letras e números.');
-    // ALTERAÇÃO (BORDA VERMELHA): confirmar senha vazia também fica vermelha (antes só dava a mensagem de senhas diferentes)
+    // BORDA VERMELHA: confirmar senha vazia também fica vermelha (antes só dava a mensagem de senhas diferentes)
     if (f.password !== f.confirm) { setMostrarErros(true); return setErro('As senhas não são iguais.'); }
     if (users.some((u) => u.email === email)) return setErro('Já existe uma conta com esse e-mail.');
     register({ role: f.role, name: f.name.trim(), phone: f.phone, email, password: f.password }, self);
@@ -50,7 +48,6 @@ export default function CadastroScreen({ route, navigation }) {
           <Text style={s.i2}>Campos com * são obrigatórios. Confira o e-mail antes de salvar.</Text>
         </View>
 
-        {/* ALTERAÇÃO (PERFIL): lista suspensa igual à Categoria. Self: só Leitor e Expositor. Admin: os 3 perfis. */}
         <Select
           label="Perfil *"
           value={f.role}
@@ -61,7 +58,7 @@ export default function CadastroScreen({ route, navigation }) {
         />
 
         <Text style={s.h}>Dados pessoais</Text>
-        {/* ALTERAÇÃO (BORDA VERMELHA): error={vazio(...)} adicionado nos campos obrigatórios */}
+        {/*BORDA VERMELHA: error={vazio(...)} adicionado nos campos obrigatórios */}
         <Field label="Nome *" placeholder="Nome" value={f.name} onChangeText={set('name')} autoCapitalize="words" error={vazio('name')} />
         <Field label="Telefone" placeholder="(11) 90000-0000" helper="Opcional. Inclua o DDD." value={f.phone} onChangeText={set('phone')} keyboardType="phone-pad" />
         <Field label="E-mail *" placeholder="nome@exemplo.com" value={f.email} onChangeText={set('email')} keyboardType="email-address" error={vazio('email')} />

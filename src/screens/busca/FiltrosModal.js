@@ -1,4 +1,3 @@
-// src/screens/busca/FiltrosModal.js
 // Tela "Filtre seu evento" (quando, região, categoria), aberta como modal.
 import { useEffect, useState } from 'react';
 import {

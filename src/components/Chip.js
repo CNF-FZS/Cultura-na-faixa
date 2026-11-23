@@ -1,4 +1,3 @@
-// src/components/Chip.js
 // Botão de filtro: texto roxo, fundo roxo quando selecionado.
 import { Pressable, Text, StyleSheet } from 'react-native';
 import { colors, fonts } from '../theme';

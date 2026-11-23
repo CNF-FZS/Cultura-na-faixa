@@ -1,4 +1,3 @@
-// src/screens/admin/RelatoriosScreen.js
 // "Relatórios" (administrador): totais de eventos e usuários, eventos por categoria e resumo por região.
 import { useState } from 'react'; // ALTERAÇÃO (PERÍODO): useState adicionado
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
@@ -65,7 +64,6 @@ export default function RelatoriosScreen() {
   const maior = Math.max(1, ...porCategoria.map(([, l]) => l.length));
   const n = (role) => users.filter((u) => u.role === role).length;
 
-  //NOVo
   // Usuários cadastrados no mês selecionado.
   const usuariosDoMes = users.filter(
     (u) => obterMes(u.since) === periodo
@@ -88,12 +86,6 @@ export default function RelatoriosScreen() {
     <SafeAreaView style={s.screen} edges={['top']}>
       <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
 
-        {/* BOTÃO VOLTAR
-        <Pressable style={s.back} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color={colors.purple} />
-          <Text style={s.backText}>Voltar</Text>
-        </Pressable> */}
-
         {/* <Header label="Administrador" /> */}
 
         <Header
@@ -109,15 +101,14 @@ export default function RelatoriosScreen() {
           {/* <Text style={s.small}>Dados ilustrativos</Text> */}
         </View>
 
-        {/* ALTERAÇÃO (PERÍODO): a caixa com ícone de calendário foi mantida, mas agora é um botão que abre a lista de meses.
-            Antes: <View style={s.period}> ... <Text style={s.periodText}>Outubro de 2026</Text> ... </View> */}
+        {/* A caixa com ícone de calendário foi mantida, mas agora é um botão que abre a lista de meses.*/}
         <Pressable style={s.period} onPress={() => setAberto((o) => !o)} accessibilityRole="button">
           <Ionicons name="calendar-outline" size={22} color={colors.purple} />
           <Text style={s.periodText}>{periodoLabel}</Text>
           <Ionicons name={aberto ? 'chevron-up' : 'chevron-down'} size={20} color={colors.black} />
         </Pressable>
 
-        {/* ALTERAÇÃO (PERÍODO): opções de mês (mesmo visual da lista da Categoria) */}
+        {/* Opções de mês (mesmo visual da lista da Categoria) */}
         {aberto &&
           MESES_TESTE.map((m) => {
             const on = m.value === periodo;
@@ -162,7 +153,7 @@ export default function RelatoriosScreen() {
         <View style={[s.card, { padding: 16 }]}>
           <Text style={s.h}>Eventos por categoria</Text>
           <Text style={[s.small, { marginBottom: 14 }]}>Quantidade · {plural(events.length, 'evento cadastrado', 'eventos cadastrados')}</Text>
-          {/* ALTERAÇÃO (PERÍODO): mensagem quando o mês não tem eventos */}
+          {/* Mensagem quando o mês não tem eventos */}
           {events.length === 0 && (
             <Text style={s.small}>
               Nenhum evento foi cadastrado neste mês.
@@ -175,7 +166,6 @@ export default function RelatoriosScreen() {
                 <View style={s.track}><View style={[s.bar, { width: `${(lista.length / maior) * 100}%` }]} /></View>
                 <Text style={s.count}>{lista.length}</Text>
               </View>
-              {/* <Text style={[s.small, { marginTop: 6 }]}>{lista.map((e) => e.title).join(', ')}</Text> */}
             </View>
           ))}
         </View>
@@ -208,7 +198,7 @@ const s = StyleSheet.create({
   small: { fontFamily: fonts.body, fontSize: 12, color: colors.black },
   period: { flexDirection: 'row', alignItems: 'center', height: 52, paddingHorizontal: 14, marginTop: 10, borderWidth: 1, borderColor: colors.green },
   periodText: { flex: 1, fontFamily: fonts.body, fontSize: 15, color: colors.black, marginLeft: 12 },
-  // ALTERAÇÃO (PERÍODO): estilos das opções de mês (iguais aos do Select)
+  //Estilos das opções de mês (iguais aos do Select)
   opt: { padding: 14, borderWidth: 1, borderTopWidth: 0, borderColor: colors.green },
   optOn: { backgroundColor: colors.purple },
   optText: { fontFamily: fonts.body, fontSize: 15, color: colors.black },

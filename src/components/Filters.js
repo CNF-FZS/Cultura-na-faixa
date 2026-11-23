@@ -1,4 +1,3 @@
-// src/components/Filters.js
 // Linha de filtros por categoria da tela inicial.
 import { ScrollView, StyleSheet } from 'react-native';
 import { FILTERS } from '../data/events';

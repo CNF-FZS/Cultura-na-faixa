@@ -1,4 +1,3 @@
-// src/screens/busca/SearchBar.js
 // Campo de busca com botão de limpar e botão que abre os filtros.
 import { View, TextInput, Pressable, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

@@ -1,4 +1,3 @@
-// src/context/EventsContext.js
 // Lista de eventos em memória (adicionar, editar, excluir). Todas as telas leem daqui; trocar por API depois.
 import { createContext, useContext, useState } from 'react';
 import { EVENTS } from '../data/events';

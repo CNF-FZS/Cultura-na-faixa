@@ -1,4 +1,3 @@
-// src/hooks/useRequireLogin.js
 // Uso: requireLogin(() => ação). Se for visitante, abre o Login em vez de executar a ação.
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';

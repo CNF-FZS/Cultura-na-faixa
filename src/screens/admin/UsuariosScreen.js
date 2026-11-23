@@ -1,7 +1,4 @@
-
-// src/screens/admin/UsuariosScreen.js
 // "Usuários" (administrador): totais, busca, lista de pessoas e ações de cadastrar, editar e remover.
-
 import { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

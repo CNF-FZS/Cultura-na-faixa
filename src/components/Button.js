@@ -1,4 +1,3 @@
-// src/components/Button.js
 // Botão largo do app: roxo (primary) ou com borda verde (outline), com ícone opcional.
 import { Pressable, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

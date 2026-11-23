@@ -1,4 +1,3 @@
-// src/components/ModalCard.js
 // Caixa branca centralizada sobre fundo roxo translúcido. Base dos modais (Editar, Redefinir senha...).
 import { Modal, View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

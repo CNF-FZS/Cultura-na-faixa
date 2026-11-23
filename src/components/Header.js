@@ -1,4 +1,3 @@
-// src/components/Header.js
 // Topo das telas: logo, tipo de conta à direita e (opcional) seta de voltar com título.
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

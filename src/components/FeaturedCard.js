@@ -1,4 +1,3 @@
-// src/components/FeaturedCard.js
 // Card grande de destaque (roxo) da tela inicial.
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -56,7 +55,7 @@ const s = StyleSheet.create({
     bottom: 12,
     width: 48,
     height: 48,
-    borderRadius: 24,
+    borderRadius: 24, //Circulo do coração
     backgroundColor: colors.green,
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 // Contas e login. Sem login o app funciona como visitante (user = null). Contas fictícias; trocar por API depois.
 import { createContext, useContext, useState } from 'react';
 

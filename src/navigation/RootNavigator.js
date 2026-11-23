@@ -1,4 +1,3 @@
-// src/navigation/RootNavigator.js
 // Telas principais. O app abre nas abas (visitante pode navegar); Login, Cadastro e formulários abrem por cima.
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';

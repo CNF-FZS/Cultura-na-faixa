@@ -1,4 +1,3 @@
-// src/screens/admin/RemoverUsuarioModal.js
 // Modal "Remover usuário?": mostra a pessoa e pede confirmação antes de remover.
 import { View, Text, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../theme';
