@@ -1,15 +1,24 @@
 # Cultura-na-faixa
 
-Alterações que faltam (as que consegui encontrar):
-- Testar pelo celular para conferir legibilidade
-- No perfil expositor e admnistrador adicionar botão para voltar a tela anterior
-- Relatórios permitir acessar dados de meses anteriores para exemplificar
-- Permitir ao editar um perfil poder colocar como administrador ou expositor
-- Não permitir editar telefone/e-mail/senha do usuário (ACHO que é alguma lei que não permite, senha tenho certeza, o restante tem que confirmar e pesquisar o que um administrador pode ter acesso)
-- Ao clicar em limpar filtros ele já confirmar direto, sem precisar clicar em ''confirmar''
-- Quando tirar um evento dos favoritos, ele sair da agenda
-- Adicionar no campo de cadastro poder selecionar se quer criar uma conta como expositor ou usuário
-- Conferir se tem tudo que foi dito nas documentações que tiveram (requisitos e afins) e SE não tiver, atualizar
-- Atualizar a imagem do logo e do que for mais necessário
-- Testar demais funcionalidades e arrumar o que for necessário.
-- Outras coisas que faltam podem ser encontradas no Teams.
+🎉 Eventos SP
+Descubra São Paulo sem gastar nada!
+
+O Eventos SP é um aplicativo desenvolvido para conectar pessoas às melhores experiências gratuitas da cidade de São Paulo. A plataforma reúne eventos culturais, shows, exposições, oficinas, festivais, atividades ao ar livre e muito mais, permitindo que os usuários descubram novas experiências sem precisar gastar.
+
+🔗 Acesse o projeto: [Cultura na Faixa](https://culturanafaixa.vercel.app/)
+
+📱 Sobre o projeto
+A proposta do projeto é facilitar o acesso à cultura, ao lazer e ao entretenimento, centralizando em um único lugar informações sobre eventos gratuitos que acontecem em São Paulo.
+
+Com uma interface intuitiva e acessível, o aplicativo permite que os usuários encontrem eventos de acordo com suas preferências, localização e categorias de interesse.
+
+✨ Funcionalidades
+🔎 Busca de eventos: encontre eventos gratuitos pela cidade.
+📍 Localização: descubra eventos próximos de você.
+🎭 Categorias: explore shows, exposições, teatro, cinema, oficinas, festivais e muito mais.
+📅 Agenda: consulte datas e horários dos próximos eventos.
+❤️ Favoritos: salve os eventos que deseja conhecer.
+📖 Detalhes dos eventos: confira informações sobre endereço, horário e descrição.
+🆓 Acesso gratuito: descubra experiências que não exigem pagamento de ingresso.
+🎯 Objetivo
+Democratizar o acesso ao entretenimento e à cultura, mostrando que São Paulo oferece diversas experiências gratuitas e que todos podem aproveitá-las.
