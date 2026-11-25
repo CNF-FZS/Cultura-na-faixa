@@ -1,4 +1,3 @@
-// src/screens/login/LoginScreen.js
 // Tela "Entre na sua conta": e-mail, senha, entrar e link para redefinir a senha.
 import { useState } from 'react';
 import { Text, Image, ScrollView, Pressable, StyleSheet } from 'react-native';

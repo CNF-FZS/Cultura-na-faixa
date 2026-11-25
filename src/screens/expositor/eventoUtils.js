@@ -1,4 +1,3 @@
-// src/screens/expositor/eventoUtils.js
 // Converte o formulário em evento (datas, endereço, acesso por extenso) e valida os campos obrigatórios.
 
 export const DEFAULT_COVER = require('../../../assets/logo-c.jpg');

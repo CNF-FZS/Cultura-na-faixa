@@ -1,4 +1,3 @@
-// src/screens/login/EsqueciSenhaModal.js
 // Modal "Redefinir Senha": pede o e-mail e confirma o envio (simulado).
 import { useState } from 'react';
 import { Text, StyleSheet } from 'react-native';

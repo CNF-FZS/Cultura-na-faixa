@@ -1,4 +1,3 @@
-// src/theme/index.js
 // Cores e fontes do app. Mude o visual aqui e vale para todas as telas.
 export const colors = {
   purple: '#321470',

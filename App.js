@@ -1,4 +1,3 @@
-// App.js
 // Ponto de entrada: carrega as fontes e monta os provedores (login, favoritos) e a navegação.
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -9,6 +8,7 @@ import { AuthProvider } from './src/context/AuthContext';
 import { FavoritesProvider } from './src/context/FavoritesContext';
 import { EventsProvider } from './src/context/EventsContext';
 import RootNavigator from './src/navigation/RootNavigator';
+import EventNotification from './src/components/EventNotification';
 
 const theme = { ...DefaultTheme, colors: { ...DefaultTheme.colors, background: colors.white } };
 
@@ -22,10 +22,13 @@ export default function App() {
       <AuthProvider>
         <EventsProvider>
           <FavoritesProvider>
+            
             <NavigationContainer theme={theme}>
               <StatusBar style="dark" />
               <RootNavigator />
+              <EventNotification />
             </NavigationContainer>
+            
           </FavoritesProvider>
         </EventsProvider>
       </AuthProvider>

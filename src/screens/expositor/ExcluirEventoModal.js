@@ -1,4 +1,3 @@
-// src/screens/expositor/ExcluirEventoModal.js
 // Modal "Excluir este evento?": mostra o evento e pede confirmação antes de remover.
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../theme';

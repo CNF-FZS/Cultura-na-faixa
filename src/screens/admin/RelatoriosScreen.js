@@ -40,13 +40,15 @@ const obterMes = (since) => {
   return `${partes[2]}-${meses[partes[1].toLowerCase()] ?? ''}`;
 };
 
+//ATUALIZAÇÃO: Meses foram atualizados para a apresentação
 const MESES_TESTE = [
-  { value: '2026-08', label: 'Agosto de 2026' },
   { value: '2026-09', label: 'Setembro de 2026' },
   { value: '2026-10', label: 'Outubro de 2026' },
   { value: '2026-11', label: 'Novembro de 2026' },
+  { value: '2026-12', label: 'Dezembro de 2026' },
 ];
-const MES_PADRAO = '2026-10'; 
+
+const MES_PADRAO = '2026-11'; 
 
 export default function RelatoriosScreen() {
   const { users } = useAuth();

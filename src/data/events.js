@@ -1,72 +1,58 @@
-// Eventos fictícios e opções de filtro (datas, regiões, categorias). Trocar por API depois.
 export const FILTERS = ['Tudo', 'Show', 'Dança', 'Exposição', 'Teatro', 'Cinema'];
 
-// Opções da tela de busca
 export const REGIONS = ['Todas', 'Centro', 'Zona Norte', 'Zona Sul', 'Zona Leste', 'Zona Oeste'];
+
 export const CATEGORIES = ['Todas', 'Show', 'Dança', 'Exposição', 'Teatro', 'Cinema'];
 
-// Formata uma data para o padrão YYYY-MM-DD.
-const formatDate = (date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-};
-
-// Obtém a data atual.
-const today = new Date();
-
-// Calcula a data daqui a 30 dias.
-const next30Days = new Date(today);
-next30Days.setDate(today.getDate() + 30);
-
 // Opções disponíveis no filtro "Quando?".
+// Data de referência: 25/11/2026.
+
 export const WHEN = {
   'Hoje': {
-    from: '2026-10-23',
-    to: '2026-10-23',
-    short: '23 out 2026',
-    helper: 'Hoje: 23 de outubro de 2026',
+    from: '2026-11-25',
+    to: '2026-11-25',
+    short: '25 nov 2026',
+    helper: 'Hoje: 25 de novembro de 2026',
   },
 
   'Amanhã': {
-    from: '2026-10-24',
-    to: '2026-10-24',
-    short: '24 out 2026',
-    helper: 'Amanhã: 24 de outubro de 2026',
+    from: '2026-11-26',
+    to: '2026-11-26',
+    short: '26 nov 2026',
+    helper: 'Amanhã: 26 de novembro de 2026',
   },
 
   'Fim de semana': {
-    from: '2026-10-24',
-    to: '2026-10-25',
-    short: '24–25 out 2026',
-    helper: 'Fim de semana: 24 e 25 de outubro de 2026',
+    from: '2026-11-28',
+    to: '2026-11-29',
+    short: '28–29 nov 2026',
+    helper: 'Fim de semana: 28 e 29 de novembro de 2026',
   },
 
   'Próximos 7 dias': {
-    from: '2026-10-23',
-    to: '2026-10-29',
-    short: '23–29 out 2026',
-    helper: 'Próximos 7 dias: 23 a 29 de outubro de 2026',
+    from: '2026-11-25',
+    to: '2026-12-02',
+    short: '25 nov – 02 dez 2026',
+    helper: 'Eventos de 25 de novembro a 2 de dezembro de 2026',
   },
 
   'Próximos 30 dias': {
-    from: formatDate(today),
-    to: formatDate(next30Days),
-    short: 'Próximos 30 dias',
-    helper: 'Eventos de hoje até os próximos 30 dias',
+    from: '2026-11-25',
+    to: '2026-12-25',
+    short: '25 nov – 25 dez 2026',
+    helper: 'Eventos de 25 de novembro a 25 de dezembro de 2026',
   },
 };
 
 export const EVENTS = [
   {
     id: '1',
+    views: '156',
     featured: true,
     title: 'Roda do Encontro',
-    day: '2026-09-12',
-    date: 'SÁB, 12 SET · 17H–19H',
-    dateShort: 'SÁB, 12 SET · 17H',
+    day: '2026-10-03',
+    date: 'SÁB, 03 OUT · 17H–19H',
+    dateShort: 'SÁB, 03 OUT · 17H',
     subtitle: 'Show · Lia Nascimento e convidados',
     venue: 'Casa de Cultura da Sé · Centro',
     address: 'Praça da Sé, 100 · Centro',
@@ -75,13 +61,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/roda-do-encontro.png'),
   },
+
   {
     id: '2',
+    views: '143',
     featured: true,
     title: 'Corpos da cidade',
-    day: '2026-09-13',
-    date: 'DOM, 13 SET · 15H',
-    dateShort: 'DOM, 13 SET · 15H',
+    day: '2026-10-10',
+    date: 'SÁB, 10 OUT · 15H',
+    dateShort: 'SÁB, 10 OUT · 15H',
     subtitle: 'Dança · Espetáculo contemporâneo',
     venue: 'Centro Cultural Vila Leste',
     address: 'Av. Vila Leste, 450 · Zona Leste',
@@ -90,13 +78,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/corpos-da-cidade.png'),
   },
+
   {
     id: '3',
+    views: '119',
     featured: true,
     title: 'Outros olhares',
-    day: '2026-09-12',
-    date: 'SÁB, 12 SET · 10H',
-    dateShort: 'SÁB, 12 SET · 10H',
+    day: '2026-10-17',
+    date: 'SÁB, 17 OUT · 10H',
+    dateShort: 'SÁB, 17 OUT · 10H',
     subtitle: 'Exposição · Arte e fotografia',
     venue: 'Galeria Aurora',
     address: 'Rua da Aurora, 120 · Centro',
@@ -105,13 +95,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/outros-olhares.jpg'),
   },
+
   {
     id: '4',
+    views: '87',
     featured: false,
     title: 'Sons da Quebrada',
-    day: '2026-10-24',
-    date: 'SÁB, 24 OUT · 16H–19H',
-    dateShort: 'SÁB, 24 OUT · 16H',
+    day: '2026-11-25',
+    date: 'QUA, 25 NOV · 16H–19H',
+    dateShort: 'QUA, 25 NOV · 16H',
     subtitle: 'Show · Música independente',
     venue: 'Casa Cultural Raízes',
     address: 'Rua das Palmeiras, 85 · Zona Sul',
@@ -120,13 +112,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/sons-da-quebrada.jpg'),
   },
+
   {
     id: '5',
+    views: '145',
     featured: false,
     title: 'Jazz na Praça',
-    day: '2026-10-25',
-    date: 'DOM, 25 OUT · 11H–13H',
-    dateShort: 'DOM, 25 OUT · 11H',
+    day: '2026-11-28',
+    date: 'SÁB, 28 NOV · 11H–13H',
+    dateShort: 'SÁB, 28 NOV · 11H',
     subtitle: 'Show · Quarteto Horizonte',
     venue: 'Praça das Artes',
     address: 'Rua do Bosque, 210 · Zona Oeste',
@@ -135,13 +129,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/jazz-na-praca.jpg'),
   },
+
   {
     id: '6',
+    views: '112',
     featured: false,
     title: 'Movimento em Cena',
-    day: '2026-10-24',
-    date: 'SÁB, 24 OUT · 18H',
-    dateShort: 'SÁB, 24 OUT · 18H',
+    day: '2026-11-26',
+    date: 'QUI, 26 NOV · 18H',
+    dateShort: 'QUI, 26 NOV · 18H',
     subtitle: 'Dança · Espetáculo contemporâneo',
     venue: 'Espaço Cultural Horizonte',
     address: 'Av. Sapopemba, 320 · Zona Leste',
@@ -150,13 +146,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/movimento-em-cena.jpg'),
   },
+
   {
     id: '7',
+    views: '96',
     featured: false,
     title: 'Dança nas Ruas',
-    day: '2026-10-25',
-    date: 'DOM, 25 OUT · 14H–17H',
-    dateShort: 'DOM, 25 OUT · 14H',
+    day: '2026-11-29',
+    date: 'DOM, 29 NOV · 14H–17H',
+    dateShort: 'DOM, 29 NOV · 14H',
     subtitle: 'Dança · Cultura urbana e hip-hop',
     venue: 'Centro Cultural da Vila Maria',
     address: 'Praça Santo Eduardo, 45 · Zona Norte',
@@ -165,13 +163,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/danca-nas-ruas.jpg'),
   },
+
   {
     id: '8',
+    views: '130',
     featured: false,
     title: 'Memórias em Cores',
-    day: '2026-10-26',
-    date: 'SEG, 26 OUT · 10H–17H',
-    dateShort: 'SEG, 26 OUT · 10H',
+    day: '2026-11-27',
+    date: 'SEX, 27 NOV · 10H–17H',
+    dateShort: 'SEX, 27 NOV · 10H',
     subtitle: 'Exposição · Arte e identidade',
     venue: 'Galeria do Ipiranga',
     address: 'Rua dos Patriotas, 320 · Zona Sul',
@@ -180,13 +180,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/memorias-em-cores.jpg'),
   },
+
   {
     id: '9',
+    views: '74',
     featured: false,
     title: 'Arte e Tecnologia',
-    day: '2026-10-27',
-    date: 'TER, 27 OUT · 11H–18H',
-    dateShort: 'TER, 27 OUT · 11H',
+    day: '2026-11-30',
+    date: 'SEG, 30 NOV · 11H–18H',
+    dateShort: 'SEG, 30 NOV · 11H',
     subtitle: 'Exposição · Arte digital e interativa',
     venue: 'Estação Criativa',
     address: 'Rua Tagipuru, 400 · Zona Oeste',
@@ -195,13 +197,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/logo-c.jpg'),
   },
+
   {
     id: '10',
+    views: '105',
     featured: false,
     title: 'Entre Quatro Paredes',
-    day: '2026-10-24',
-    date: 'SÁB, 24 OUT · 19H',
-    dateShort: 'SÁB, 24 OUT · 19H',
+    day: '2026-11-28',
+    date: 'SÁB, 28 NOV · 19H',
+    dateShort: 'SÁB, 28 NOV · 19H',
     subtitle: 'Teatro · Drama contemporâneo',
     venue: 'Teatro Popular da Mooca',
     address: 'Rua da Mooca, 1.200 · Zona Leste',
@@ -210,13 +214,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/logo-c.jpg'),
   },
+
   {
     id: '11',
+    views: '91',
     featured: false,
     title: 'O Último Trem',
-    day: '2026-10-25',
-    date: 'DOM, 25 OUT · 16H',
-    dateShort: 'DOM, 25 OUT · 16H',
+    day: '2026-11-29',
+    date: 'DOM, 29 NOV · 16H',
+    dateShort: 'DOM, 29 NOV · 16H',
     subtitle: 'Teatro · Comédia teatral',
     venue: 'Teatro da Vila',
     address: 'Av. Nova Cantareira, 900 · Zona Norte',
@@ -225,13 +231,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/logo-c.jpg'),
   },
+
   {
     id: '12',
+    views: '68',
     featured: false,
     title: 'Histórias de Quintal',
-    day: '2026-11-08',
-    date: 'DOM, 08 NOV · 15H',
-    dateShort: 'DOM, 08 NOV · 15H',
+    day: '2026-11-30',
+    date: 'SEG, 30 NOV · 15H',
+    dateShort: 'SEG, 30 NOV · 15H',
     subtitle: 'Teatro · Infantil e familiar',
     venue: 'Casa de Cultura do Campo Limpo',
     address: 'Rua Nossa Senhora do Bom Conselho, 59 · Zona Sul',
@@ -240,13 +248,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/logo-c.jpg'),
   },
+
   {
     id: '13',
+    views: '121',
     featured: false,
     title: 'Cinema na Praça',
-    day: '2026-11-14',
-    date: 'SÁB, 14 NOV · 19H',
-    dateShort: 'SÁB, 14 NOV · 19H',
+    day: '2026-12-01',
+    date: 'TER, 01 DEZ · 19H',
+    dateShort: 'TER, 01 DEZ · 19H',
     subtitle: 'Cinema · Sessão ao ar livre',
     venue: 'Praça do Patriarca',
     address: 'Praça do Patriarca, 20 · Centro',
@@ -255,13 +265,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/cinema-na-praca.jpg'),
   },
+
   {
     id: '14',
+    views: '83',
     featured: false,
     title: 'Mostra Curta SP',
-    day: '2026-11-15',
-    date: 'DOM, 15 NOV · 18H',
-    dateShort: 'DOM, 15 NOV · 18H',
+    day: '2026-12-02',
+    date: 'QUA, 02 DEZ · 18H',
+    dateShort: 'QUA, 02 DEZ · 18H',
     subtitle: 'Cinema · Curtas-metragens brasileiros',
     venue: 'Cine Cultura Oeste',
     address: 'Av. Corifeu de Azevedo Marques, 1.200 · Zona Oeste',
@@ -270,13 +282,15 @@ export const EVENTS = [
     price: 'Grátis',
     image: require('../../assets/logo-c.jpg'),
   },
+
   {
     id: '15',
+    views: '59',
     featured: false,
     title: 'Sessão Nostalgia',
-    day: '2026-11-21',
-    date: 'SÁB, 21 NOV · 20H',
-    dateShort: 'SÁB, 21 NOV · 20H',
+    day: '2026-12-03',
+    date: 'QUI, 03 DEZ · 20H',
+    dateShort: 'QUI, 03 DEZ · 20H',
     subtitle: 'Cinema · Clássicos do cinema nacional',
     venue: 'Cine Vila Mariana',
     address: 'Rua Domingos de Morais, 1.500 · Zona Sul',
@@ -291,7 +305,7 @@ const DETAILS = {
   '1': {
     artist: 'Lia Nascimento e convidados',
     description: 'Uma tarde de samba, afeto e vozes da cidade. Lia Nascimento recebe músicos do Centro para uma roda ao ar livre com clássicos e composições autorais.',
-    dateLong: 'Sábado, 12 de setembro de 2026',
+    dateLong: 'Sábado, 3 de outubro de 2026',
     time: 'Início às 17h · Encerramento às 19h',
     placeName: 'Casa de Cultura da Sé',
     addressLines: ['Praça da Sé, 108 · Pátio externo', 'Sé, Centro · São Paulo – SP', 'CEP 01001-000'],
@@ -299,120 +313,141 @@ const DETAILS = {
     age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
     accessibility: 'Acesso sem degraus, banheiro acessível e área reservada para pessoas com mobilidade reduzida.',
     signup: 'Inscrição antecipada pelo site; sujeita à lotação do espaço.',
-    links: { signup: 'https://exemplo.com/roda-do-encontro', info: 'https://exemplo.com/casa-de-cultura' },
+    links: {
+      signup: 'https://exemplo.com/roda-do-encontro',
+      info: 'https://exemplo.com/casa-de-cultura',
+    },
   },
+
   '2': {
     description: 'Intervenção de dança contemporânea que ocupa o centro cultural com corpos, ruas e memórias da Zona Leste.',
-    dateLong: 'Domingo, 13 de setembro de 2026',
+    dateLong: 'Sábado, 10 de outubro de 2026',
     time: 'Início às 15h',
     placeName: 'Centro Cultural Vila Leste',
     addressLines: ['Av. Vila Leste, 450', 'Vila Leste · São Paulo – SP'],
     age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
-    links: { info: 'https://exemplo.com/vila-leste' },
+    links: {
+      info: 'https://exemplo.com/vila-leste',
+    },
   },
+
   '3': {
     description: 'Exposição coletiva que reúne pinturas e instalações de artistas da cidade sobre o olhar de quem passa.',
-    dateLong: 'Sábado, 12 de setembro de 2026',
+    dateLong: 'Sábado, 17 de outubro de 2026',
     time: 'Início às 10h',
     placeName: 'Galeria Aurora',
     addressLines: ['Rua da Aurora, 120', 'Centro · São Paulo – SP'],
     age: ['Livre para todas as idades', 'Crianças e adultos são bem-vindos.'],
-    links: { info: 'https://exemplo.com/galeria-aurora' },
+    links: {
+      info: 'https://exemplo.com/galeria-aurora',
+    },
   },
+
   '4': {
     artist: 'Artistas independentes da Zona Sul',
     description: 'Uma celebração da música independente, reunindo artistas locais em apresentações de diferentes estilos e sonoridades.',
-    dateLong: 'Sábado, 24 de outubro de 2026',
+    dateLong: 'Quarta-feira, 25 de novembro de 2026',
     time: 'Início às 16h · Encerramento às 19h',
     placeName: 'Casa Cultural Raízes',
     addressLines: ['Rua das Palmeiras, 85', 'Zona Sul · São Paulo – SP'],
     age: ['Livre para todas as idades'],
     accessibility: 'Acesso térreo.',
   },
+
   '5': {
     artist: 'Quarteto Horizonte',
     description: 'Uma apresentação de jazz ao ar livre, com clássicos do gênero e improvisações musicais.',
-    dateLong: 'Domingo, 25 de outubro de 2026',
+    dateLong: 'Sábado, 28 de novembro de 2026',
     time: 'Início às 11h · Encerramento às 13h',
     placeName: 'Praça das Artes',
     addressLines: ['Rua do Bosque, 210', 'Zona Oeste · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '6': {
     description: 'Um espetáculo de dança contemporânea que explora movimentos, emoções e diferentes formas de expressão corporal.',
-    dateLong: 'Sábado, 24 de outubro de 2026',
+    dateLong: 'Quinta-feira, 26 de novembro de 2026',
     time: 'Início às 18h',
     placeName: 'Espaço Cultural Horizonte',
     addressLines: ['Av. Sapopemba, 320', 'Zona Leste · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '7': {
     description: 'Uma tarde dedicada à dança urbana, com apresentações de hip-hop, breaking e outras manifestações da cultura de rua.',
-    dateLong: 'Domingo, 25 de outubro de 2026',
+    dateLong: 'Domingo, 29 de novembro de 2026',
     time: 'Início às 14h · Encerramento às 17h',
     placeName: 'Centro Cultural da Vila Maria',
     addressLines: ['Praça Santo Eduardo, 45', 'Zona Norte · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '8': {
     description: 'Uma exposição que apresenta obras de artistas locais inspiradas nas memórias, histórias e identidades da cidade.',
-    dateLong: 'Segunda-feira, 26 de outubro de 2026',
+    dateLong: 'Sexta-feira, 27 de novembro de 2026',
     time: 'Visitação das 10h às 17h',
     placeName: 'Galeria do Ipiranga',
     addressLines: ['Rua dos Patriotas, 320', 'Ipiranga · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '9': {
     description: 'Uma experiência interativa que aproxima arte e tecnologia por meio de instalações digitais, projeções e experiências audiovisuais.',
-    dateLong: 'Terça-feira, 27 de outubro de 2026',
+    dateLong: 'Segunda-feira, 30 de novembro de 2026',
     time: 'Visitação das 11h às 18h',
     placeName: 'Estação Criativa',
     addressLines: ['Rua Tagipuru, 400', 'Barra Funda · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '10': {
     description: 'Uma peça dramática sobre convivência, conflitos e relações humanas, apresentada por um grupo de artistas independentes.',
-    dateLong: 'Sábado, 24 de outubro de 2026',
+    dateLong: 'Sábado, 28 de novembro de 2026',
     time: 'Início às 19h',
     placeName: 'Teatro Popular da Mooca',
     addressLines: ['Rua da Mooca, 1.200', 'Mooca · São Paulo – SP'],
     age: ['Classificação indicativa a confirmar'],
   },
+
   '11': {
     description: 'Uma comédia sobre encontros inesperados durante uma viagem de trem, com situações divertidas e personagens curiosos.',
-    dateLong: 'Domingo, 25 de outubro de 2026',
+    dateLong: 'Domingo, 29 de novembro de 2026',
     time: 'Início às 16h',
     placeName: 'Teatro da Vila',
     addressLines: ['Av. Nova Cantareira, 900', 'Zona Norte · São Paulo – SP'],
     age: ['Classificação indicativa a confirmar'],
   },
+
   '12': {
     description: 'Uma apresentação teatral infantil que transforma histórias, brincadeiras e imaginação em uma aventura para toda a família.',
-    dateLong: 'Domingo, 8 de novembro de 2026',
+    dateLong: 'Segunda-feira, 30 de novembro de 2026',
     time: 'Início às 15h',
     placeName: 'Casa de Cultura do Campo Limpo',
     addressLines: ['Rua Nossa Senhora do Bom Conselho, 59', 'Campo Limpo · São Paulo – SP'],
     age: ['Livre para todas as idades'],
   },
+
   '13': {
     description: 'Uma sessão de cinema ao ar livre, com uma seleção de filmes para reunir moradores e visitantes em uma noite cultural.',
-    dateLong: 'Sábado, 14 de novembro de 2026',
+    dateLong: 'Terça-feira, 1 de dezembro de 2026',
     time: 'Início às 19h',
     placeName: 'Praça do Patriarca',
     addressLines: ['Praça do Patriarca, 20', 'Centro · São Paulo – SP'],
     age: ['Classificação indicativa a confirmar'],
   },
+
   '14': {
     description: 'Uma mostra dedicada a curtas-metragens brasileiros, valorizando novos cineastas e diferentes perspectivas sobre o país.',
-    dateLong: 'Domingo, 15 de novembro de 2026',
+    dateLong: 'Quarta-feira, 2 de dezembro de 2026',
     time: 'Início às 18h',
     placeName: 'Cine Cultura Oeste',
     addressLines: ['Av. Corifeu de Azevedo Marques, 1.200', 'Zona Oeste · São Paulo – SP'],
     age: ['Classificação indicativa a confirmar'],
   },
+
   '15': {
     description: 'Uma sessão especial com clássicos do cinema nacional, resgatando histórias e produções importantes da cinematografia brasileira.',
-    dateLong: 'Sábado, 21 de novembro de 2026',
+    dateLong: 'Quinta-feira, 3 de dezembro de 2026',
     time: 'Início às 20h',
     placeName: 'Cine Vila Mariana',
     addressLines: ['Rua Domingos de Morais, 1.500', 'Vila Mariana · São Paulo – SP'],
@@ -424,9 +459,9 @@ EVENTS.forEach((e) => Object.assign(e, DETAILS[e.id]));
 
 const FORMS = {
   '1': {
-    startDate: '12/09/2026',
+    startDate: '03/10/2026',
     startTime: '17:00',
-    endDate: '12/09/2026',
+    endDate: '03/10/2026',
     endTime: '19:00',
     cep: '01001-000',
     street: 'Praça da Sé',
@@ -442,7 +477,7 @@ const FORMS = {
   },
 
   '2': {
-    startDate: '13/09/2026',
+    startDate: '10/10/2026',
     startTime: '15:00',
     cep: '03700-000',
     street: 'Av. Vila Leste',
@@ -452,7 +487,7 @@ const FORMS = {
   },
 
   '3': {
-    startDate: '12/09/2026',
+    startDate: '17/10/2026',
     startTime: '10:00',
     cep: '01000-000',
     street: 'Rua da Aurora',
@@ -462,7 +497,7 @@ const FORMS = {
   },
 
   '4': {
-    startDate: '24/10/2026',
+    startDate: '25/11/2026',
     startTime: '16:00',
     cep: '',
     street: 'Rua das Palmeiras',
@@ -472,7 +507,7 @@ const FORMS = {
   },
 
   '5': {
-    startDate: '25/10/2026',
+    startDate: '28/11/2026',
     startTime: '11:00',
     cep: '',
     street: 'Rua do Bosque',
@@ -482,7 +517,7 @@ const FORMS = {
   },
 
   '6': {
-    startDate: '24/10/2026',
+    startDate: '26/11/2026',
     startTime: '18:00',
     cep: '',
     street: 'Av. Sapopemba',
@@ -492,7 +527,7 @@ const FORMS = {
   },
 
   '7': {
-    startDate: '25/10/2026',
+    startDate: '29/11/2026',
     startTime: '14:00',
     cep: '',
     street: 'Praça Santo Eduardo',
@@ -502,7 +537,7 @@ const FORMS = {
   },
 
   '8': {
-    startDate: '26/10/2026',
+    startDate: '27/11/2026',
     startTime: '10:00',
     cep: '',
     street: 'Rua dos Patriotas',
@@ -512,7 +547,7 @@ const FORMS = {
   },
 
   '9': {
-    startDate: '27/10/2026',
+    startDate: '30/11/2026',
     startTime: '11:00',
     cep: '',
     street: 'Rua Tagipuru',
@@ -522,7 +557,7 @@ const FORMS = {
   },
 
   '10': {
-    startDate: '24/10/2026',
+    startDate: '28/11/2026',
     startTime: '19:00',
     cep: '',
     street: 'Rua da Mooca',
@@ -532,7 +567,7 @@ const FORMS = {
   },
 
   '11': {
-    startDate: '25/10/2026',
+    startDate: '29/11/2026',
     startTime: '16:00',
     cep: '',
     street: 'Av. Nova Cantareira',
@@ -542,7 +577,7 @@ const FORMS = {
   },
 
   '12': {
-    startDate: '08/11/2026',
+    startDate: '30/11/2026',
     startTime: '15:00',
     cep: '',
     street: 'Rua Nossa Senhora do Bom Conselho',
@@ -552,7 +587,7 @@ const FORMS = {
   },
 
   '13': {
-    startDate: '14/11/2026',
+    startDate: '01/12/2026',
     startTime: '19:00',
     cep: '',
     street: 'Praça do Patriarca',
@@ -562,7 +597,7 @@ const FORMS = {
   },
 
   '14': {
-    startDate: '15/11/2026',
+    startDate: '02/12/2026',
     startTime: '18:00',
     cep: '',
     street: 'Av. Corifeu de Azevedo Marques',
@@ -572,7 +607,7 @@ const FORMS = {
   },
 
   '15': {
-    startDate: '21/11/2026',
+    startDate: '03/12/2026',
     startTime: '20:00',
     cep: '',
     street: 'Rua Domingos de Morais',
@@ -582,4 +617,6 @@ const FORMS = {
   },
 };
 
-EVENTS.forEach((e) => (e.form = FORMS[e.id]));
+EVENTS.forEach((e) => {
+  e.form = FORMS[e.id];
+});

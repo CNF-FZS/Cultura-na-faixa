@@ -1,4 +1,3 @@
-// src/screens/expositor/EventoFormScreen.js
 // Formulário de "Adicionar evento" e "Editar evento" (o mesmo; a edição recebe o parâmetro id).
 import { useState, useRef } from 'react'; // ALTERAÇÃO (CALENDÁRIO): useRef adicionado
 import { View, Text, Image, ScrollView, Pressable, StyleSheet, Platform } from 'react-native'; // ALTERAÇÃO (CALENDÁRIO): Platform adicionado
@@ -12,7 +11,6 @@ import Header from '../../components/Header';
 import Field from '../../components/Field';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
-//import { AGES, COVERS, EMPTY_FORM, REQUIRED, buildEvent, validate } from './eventoUtils'; // ALTERAÇÃO (BORDA VERMELHA): REQUIRED adicionado
 import {
   AGES,
   COVERS,
@@ -55,15 +53,12 @@ const maskHora = (txt) => {
   return `${h}:${m}`;
 };
 
-
 // API CEP
 // ALTERAÇÃO (CEP): máscara de CEP. "01310100" -> "01310-100" (só números, o "-" entra sozinho)
 const maskCep = (txt) => {
   const n = (txt ?? '').replace(/\D/g, '').slice(0, 8);
   return n.length > 5 ? `${n.slice(0, 5)}-${n.slice(5)}` : n;
 };
-
-
 
 export default function EventoFormScreen({ route, navigation }) {
   const { user } = useAuth();
@@ -81,15 +76,10 @@ export default function EventoFormScreen({ route, navigation }) {
   const [picker, setPicker] = useState(null); // 'startDate' | 'endDate' | null  // ALTERAÇÃO (CALENDÁRIO)
   const webRefs = useRef({}); // inputs de data usados só na web  // ALTERAÇÃO (CALENDÁRIO)
 
-
-
-
-
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v }));
 
   // ALTERAÇÃO (BORDA VERMELHA): true se o campo é obrigatório, está vazio e o usuário já tentou salvar
   const vazio = (k) => mostrarErros && REQUIRED.includes(k) && !String(f[k] ?? '').trim();
-
 
   const T = (k, label, extra) => <Field label={label} value={f[k]} onChangeText={set(k)} error={vazio(k)} {...extra} />;
   const S = (k, label, options, extra) => <Select label={label} value={f[k]} options={options} onChange={set(k)} error={vazio(k)} {...extra} />;
@@ -136,8 +126,6 @@ export default function EventoFormScreen({ route, navigation }) {
     />
   );
 
-
-
   // TESTE
   // ALTERAÇÃO (CALENDÁRIO): aplica a data escolhida (usado pelo celular e pela web)
   const aplicarData = (k, date) => {
@@ -181,7 +169,14 @@ export default function EventoFormScreen({ route, navigation }) {
             type="date"
             tabIndex={-1}
             value={toISO(f[k])}
-            min={k === 'endDate' ? toISO(f.startDate) || undefined : undefined}
+            //ATUALIZAÇÃO: Impedir que um expositor cadastre evento antes de 25/11
+            min={
+              k === 'endDate'
+                ? toISO(f.startDate) || undefined
+                : !base
+                  ? '2026-11-25'
+                  : undefined
+            }
             onChange={(e) => {
               const d = parse(fromISO(e.target.value));
               if (d) aplicarData(k, d);
@@ -199,9 +194,7 @@ export default function EventoFormScreen({ route, navigation }) {
       </Pressable>
     );
   };
-
-  // TESTE TERMINA
-
+  
   // Upload real ainda não existe: tocar alterna entre as imagens de exemplo.
   const trocarCapa = () => setCover(COVERS[(COVERS.indexOf(cover) + 1) % COVERS.length]);
 
@@ -213,7 +206,6 @@ export default function EventoFormScreen({ route, navigation }) {
     navigation.goBack();
   };
 
-  // const data = { right: 'calendar-outline', placeholder: 'dd/mm/aaaa', style: s.half };
   // ALTERAÇÃO (HORA): adicionados keyboardType 'number-pad' e maxLength 5
   const hora = { right: 'time-outline', placeholder: 'hh:mm', style: s.half, keyboardType: 'number-pad', maxLength: 5 };
 
@@ -261,7 +253,14 @@ export default function EventoFormScreen({ route, navigation }) {
             value={parse(f[picker]) ?? new Date()}
             mode="date"
             display={Platform.OS === 'ios' ? 'inline' : 'default'}
-            minimumDate={picker === 'endDate' ? parse(f.startDate) ?? undefined : undefined}
+            //ATUALIZAÇÃO: Impedir que um expositor cadastre evento antes de 25/11
+            minimumDate={
+              picker === 'endDate'
+                ? parse(f.startDate) ?? undefined
+                : !base
+                  ? new Date(2026, 10, 25)
+                  : undefined
+            }
             onChange={onPick}
           />
         )}

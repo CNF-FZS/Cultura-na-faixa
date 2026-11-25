@@ -38,7 +38,7 @@ export default function BuscaScreen() {
     (key) => filters[key].length > 0
   );
 
-  // Aplica a pesquisa e os filtros aos eventos.
+  // Aplica a pesquisa, os filtros e a ordenação aos eventos.
   const results = useMemo(
     () => filterEvents(events, query, filters),
     [events, query, filters]
@@ -60,10 +60,13 @@ export default function BuscaScreen() {
     setQuery('');
 
     setFilters({
+      ...DEFAULT_FILTERS,
       when: [],
       region: [],
       category: [],
     });
+
+    setOpen(false);
   };
 
   // Remove individualmente uma opção selecionada.
@@ -127,13 +130,19 @@ export default function BuscaScreen() {
         </View>
 
         {/* Lista de eventos encontrados. */}
-        {results.map((e) => (
-          <EventCard
-            key={e.id}
-            event={e}
-            showPrice={false}
-          />
-        ))}
+        {results.length > 0 ? (
+          results.map((e) => (
+            <EventCard
+              key={e.id}
+              event={e}
+              showPrice={false}
+            />
+          ))
+        ) : (
+          <Text style={s.empty}>
+            Nenhum evento futuro encontrado com os critérios selecionados.
+          </Text>
+        )}
 
         <View style={s.note}>
           <Text style={s.noteTitle}>
@@ -169,6 +178,7 @@ export default function BuscaScreen() {
           setFilters(f);
           setOpen(false);
         }}
+        onClear={clearAll}
       />
     </SafeAreaView>
   );
@@ -226,6 +236,14 @@ const s = StyleSheet.create({
     color: colors.black,
   },
 
+  empty: {
+    fontFamily: fonts.body,
+    fontSize: 14,
+    color: colors.black,
+    marginBottom: 20,
+    lineHeight: 21,
+  },
+
   note: {
     padding: 20,
     marginTop: 14,
@@ -259,3 +277,4 @@ const s = StyleSheet.create({
     color: colors.purple,
   },
 });
+

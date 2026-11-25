@@ -1,7 +1,13 @@
-// src/screens/perfil/PerfilScreen.js
 // Aba Perfil: dados da conta e botões extras conforme o tipo (usuário, expositor ou administrador).
 import { useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  StyleSheet,
+  Switch,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons'; // import do ícone de cadeado
 import { colors, fonts } from '../../theme';
@@ -11,7 +17,6 @@ import LoginPrompt from '../../components/LoginPrompt';
 import Field from '../../components/Field';
 import Button from '../../components/Button';
 import EditarPerfilModal from './EditarPerfilModal';
-
 
 const ROLES = {
   usuario: { label: 'Usuário', edit: 'Editar', links: [] },
@@ -24,7 +29,7 @@ const ROLES = {
 };
 
 export default function PerfilScreen({ navigation }) {
-  const { user, logout, updateUser } = useAuth();
+  const {user, logout, updateUser, notificationsEnabled, toggleNotifications, } = useAuth();
   const [editing, setEditing] = useState(false);
   if (!user) return <LoginPrompt title="Entre na sua conta" text="Para ver e editar seu perfil, entre ou crie uma conta gratuita." />;
   const role = ROLES[user.role];
@@ -51,6 +56,25 @@ export default function PerfilScreen({ navigation }) {
             <Text style={s.pwValue}>••••••••</Text>
             <Ionicons name="lock-closed-outline" size={20} color={colors.black + '66'} />
           </View>
+        </View>
+
+        <View style={s.notificationSetting}>
+          <View style={s.notificationInfo}>
+            <Text style={s.notificationTitle}>Notificações</Text>
+            <Text style={s.notificationDescription}>
+              Receba lembretes dos seus eventos favoritos.
+            </Text>
+          </View>
+
+          <Switch
+            value={notificationsEnabled}
+            onValueChange={toggleNotifications}
+            trackColor={{
+              false: '#CCCCCC',
+              true: colors.green,
+            }}
+            thumbColor={colors.white}
+          />
         </View>
 
         <Button label={role.edit} onPress={() => setEditing(true)} style={{ marginTop: 8 }} />
@@ -81,7 +105,6 @@ const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.white },
   content: { paddingHorizontal: 24, paddingTop: 16, paddingBottom: 24 },
   identity: { flexDirection: 'row', alignItems: 'center', marginTop: 24 },
-  //avatar: { width: 90, height: 90, borderRadius: 45, backgroundColor: colors.purple },
   avatar: {
   width: 90,
   height: 90,
@@ -99,4 +122,29 @@ const s = StyleSheet.create({
   pwLabel: { fontFamily: fonts.bold, fontSize: 13, color: colors.black, marginBottom: 8 },
   pwBox: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', height: 52, paddingHorizontal: 14, borderWidth: 1, borderColor: colors.black + '33', backgroundColor: '#F0F0F0' },
   pwValue: { fontFamily: fonts.body, fontSize: 15, color: colors.black + '80', letterSpacing: 2 },
+  notificationSetting: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: 20,
+  paddingVertical: 8,
+  },
+
+  notificationInfo: {
+    flex: 1,
+    marginRight: 12,
+  },
+
+  notificationTitle: {
+    fontFamily: fonts.bold,
+    fontSize: 15,
+    color: colors.black,
+  },
+
+  notificationDescription: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.black + '99',
+    marginTop: 4,
+  },
 });

@@ -59,6 +59,7 @@ export default function FiltrosModal({
   filters,
   onApply,
   onClose,
+  onClear,
 }) {
   // Rascunho: só vale quando a pessoa toca em "Aplicar filtros".
   const [draft, setDraft] = useState(filters);
@@ -167,11 +168,7 @@ export default function FiltrosModal({
 
             <Pressable
               style={s.clear}
-              onPress={() => setDraft({
-                when: [],
-                region: [],
-                category: [],
-              })}
+              onPress={onClear}
               accessibilityRole="button"
             >
               <Text style={s.clearText}>Limpar filtros</Text>
@@ -276,3 +273,4 @@ const s = StyleSheet.create({
     color: colors.purple,
   },
 });
+

@@ -1,4 +1,3 @@
-// src/screens/EmBreveScreen.js
 // Tela provisória para as páginas que ainda não foram construídas.
 import { Text, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

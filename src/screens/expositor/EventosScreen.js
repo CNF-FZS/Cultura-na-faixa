@@ -1,4 +1,3 @@
-// src/screens/expositor/EventosScreen.js
 // "Área de Eventos" (expositor e administrador): lista com busca, e atalhos para adicionar, editar e excluir.
 import { useState } from 'react';
 import { View, Text, Image, ScrollView, Pressable, StyleSheet } from 'react-native';
@@ -12,10 +11,12 @@ import SearchBar from '../busca/SearchBar';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import ExcluirEventoModal from './ExcluirEventoModal';
+import { useFavorites } from '../../context/FavoritesContext';
 
 export default function EventosScreen({ navigation }) {
   const { user } = useAuth();
   const { events, removeEvent } = useEvents();
+  const { getFavoriteCount } = useFavorites();
   const [q, setQ] = useState('');
   const [alvo, setAlvo] = useState(null); // evento que está sendo excluído
   const lista = events.filter((e) => norm(`${e.title} ${e.venue} ${e.category}`).includes(norm(q.trim())));
@@ -23,13 +24,7 @@ export default function EventosScreen({ navigation }) {
   return (
     <SafeAreaView style={s.screen} edges={['top']}>
       <ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        {/* BOTAÕ VOLTAR
-        <Pressable style={s.back} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color={colors.purple} />
-          <Text style={s.backText}>Voltar</Text>
-        </Pressable> */}
-        {/* <Header onBack={() => navigation.goBack()} label={user.role === 'administrador' ? 'Administrador' : 'Expositor'} /> */}
-
+        
         <Header
           onBack={() => navigation.goBack()}
           label={user.role === 'administrador' ? 'Administrador' : 'Expositor'}
@@ -48,7 +43,7 @@ export default function EventosScreen({ navigation }) {
 
         <View style={s.rowBetween}>
           <Text style={s.small}>Todos os eventos · {lista.length}</Text>
-          <Text style={s.small}>Outubro de 2026</Text>
+          
         </View>
 
         {lista.map((e) => (
@@ -60,6 +55,16 @@ export default function EventosScreen({ navigation }) {
                 <Text style={s.cardDate}>{e.dateShort ?? e.date}</Text>
                 <Text style={s.cardVenue}>{e.venue}</Text>
                 <Text style={s.cardMeta}>{e.category} · Gratuito</Text>
+                <View style={s.favoriteInfo}>
+                  <Ionicons
+                    name="heart"
+                    size={15}
+                    color={colors.purple}
+                  />
+                  <Text style={s.favoriteText}>
+                    {getFavoriteCount(e.id)} favoritaram
+                  </Text>
+                </View>
               </View>
             </View>
             <View style={s.divider} />
@@ -108,4 +113,16 @@ const s = StyleSheet.create({
   divider: { height: 1, backgroundColor: colors.black + '66', marginVertical: 12 },
   action: { flexDirection: 'row', alignItems: 'center', paddingVertical: 4 },
   actionText: { fontFamily: fonts.bold, fontSize: 14, color: colors.purple, marginLeft: 8 },
+  favoriteInfo: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 6,
+},
+
+favoriteText: {
+  fontFamily: fonts.bold,
+  fontSize: 12,
+  color: colors.purple,
+  marginLeft: 5,
+},
 });

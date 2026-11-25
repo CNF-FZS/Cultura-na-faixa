@@ -62,6 +62,12 @@ export default function UsuariosScreen({ navigation }) {
           <Text style={s.bigLbl}>Total de pessoas cadastradas</Text>
         </View>
 
+        {/* TOTAL DE PESSOAS ATIVAS */}
+        <View style={[s.big, s.bigCompact]}>
+          <Text style={s.bigNum}>4</Text>
+          <Text style={s.bigLbl}>Total de usuários ativos nas últimas 24h</Text>
+        </View>
+
         {/* CADASTROS POR TIPO DE CONTA */}
         <View style={[s.card, { padding: 16 }]}>
           <Text style={s.h}>Cadastros por tipo de conta</Text>
@@ -224,6 +230,10 @@ const s = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 24,
     marginVertical: 20,
+  },
+  //Espaçamento entre pessoas cadastras e pessoas ativas
+  bigCompact: {
+    marginTop: 0,
   },
 
   bigNum: {

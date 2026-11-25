@@ -35,6 +35,20 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [users, setUsers] = useState(USERS);
   const [user, setUser] = useState(null); // null = visitante
+  const [notificationPreferences, setNotificationPreferences] = useState({});
+
+  const notificationsEnabled = user
+    ? notificationPreferences[user.id] ?? true
+    : false;
+
+  const toggleNotifications = () => {
+    if (!user) return;
+
+    setNotificationPreferences((prev) => ({
+      ...prev,
+      [user.id]: !(prev[user.id] ?? true),
+    }));
+  };
 
   const login = (email, password) => {
     const found = users.find((u) => u.email === email.trim().toLowerCase() && u.password === password);
@@ -88,7 +102,19 @@ export function AuthProvider({ children }) {
   const removeUser = (id) => setUsers((l) => l.filter((u) => u.id !== id));
 
   return (
-    <AuthContext.Provider value={{ user, users, login, logout, register, updateUser, removeUser }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        users,
+        login,
+        logout,
+        register,
+        updateUser,
+        removeUser,
+        notificationsEnabled,
+        toggleNotifications,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

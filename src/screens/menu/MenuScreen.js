@@ -19,15 +19,22 @@ import Filters from '../../components/Filters';
 import FeaturedCarousel from '../../components/FeaturedCarousel';
 import EventCard from '../../components/EventCard';
 
-
 export default function MenuScreen() {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { events: todos } = useEvents();
   const { isFavorite } = useFavorites();
+  const DATA_REFERENCIA = '2026-11-25';
 
+  // Mais vistos: três eventos com maior número de visualizações (somente futuros).
+  const maisVistos = [...todos]
+    .filter((e) => e.day >= DATA_REFERENCIA)
+    .sort((a, b) => (b.views || 0) - (a.views || 0))
+    .slice(0, 3);
+
+  // Recomendações: mantém a lógica atual.
   const featured = todos
-    .filter((e) => !isFavorite(e.id))
+    .filter((e) => e.day >= DATA_REFERENCIA && !isFavorite(e.id))
     .slice(0, 3);
 
   // Mantém os  que foram favoritados.
@@ -60,7 +67,7 @@ export default function MenuScreen() {
           </Text>
 
           <Text style={s.kickerRight}>
-            24 e 25 de outubro
+            Eventos a partir de 25 de novembro
           </Text>
         </View>
 
@@ -84,6 +91,38 @@ export default function MenuScreen() {
                 : 'Você já salvou todos os eventos disponíveis. Novas recomendações aparecerão aqui quando houver outros eventos.'}
             </Text>
           </View>
+        )}
+
+        <View style={s.sectionHead}>
+          <Text style={s.sectionTitle}>
+            Eventos mais vistos
+          </Text>
+          
+        </View>
+
+        {maisVistos.length > 0 ? (
+          maisVistos.map((e) => (
+            <View key={e.id}>
+              <EventCard event={e} />
+
+              <Text
+                style={{
+                  color: colors.purple,
+                  fontSize: 12,
+                  fontWeight: '600',
+                  marginTop: -8,
+                  marginBottom: 12,
+                  marginLeft: 12,
+                }}
+              >
+                
+              </Text>
+            </View>
+          ))
+        ) : (
+          <Text style={s.empty}>
+            Não há eventos futuros para exibir.
+          </Text>
         )}
 
         <View style={[s.rowBetween, s.sectionHead]}>
